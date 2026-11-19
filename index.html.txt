@@ -1,0 +1,3759 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="MSC榮耀號家族手冊" />
+  <meta name="theme-color" content="#EEF4F9" />
+  <title>MSC 地中海榮耀號・五日家族旅遊手冊 (2026.12.16 – 12.20)</title>
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS & BASE RESET (100% Native CSS - Zero External CDN)
+       ============================================================ */
+    :root {
+      --bg-outer: #DDE7F0;
+      --bg-page: #EEF4F9;
+      --surface: #FFFFFF;
+      --surface-soft: #F8FAFC;
+      --text-main: #0F172A;
+      --text-body: #334155;
+      --text-muted: #64748B;
+      --border-soft: #E2E8F0;
+
+      --accent-teal: #0D9488;
+      --accent-teal-dark: #0F766E;
+      --accent-blue: #2563EB;
+      --accent-blue-dark: #1D4ED8;
+      --accent-navy: #0F3D3E;
+
+      --mint-bg: #ECFDF5;
+      --mint-border: #A7F3D0;
+      --mint-text: #065F46;
+
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+      --amber-text: #92400E;
+
+      --star-bg: #FEF3C7;
+      --star-text: #B45309;
+
+      --radius-card: 20px;
+      --radius-inner: 12px;
+      --radius-pill: 9999px;
+      --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.06);
+      --shadow-float: 0 8px 24px rgba(15, 23, 42, 0.16);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Hiragino Sans CNS", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-outer);
+      color: var(--text-main);
+      line-height: 1.55;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ============================================================
+       MOBILE-FIRST APP SHELL
+       ============================================================ */
+    .app-shell {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      min-height: 100vh;
+      background-color: var(--bg-page);
+      position: relative;
+      padding-bottom: 104px;
+      box-shadow: 0 0 48px rgba(15, 23, 42, 0.10);
+    }
+
+    /* ============================================================
+       STICKY HEADER & HORIZONTAL PILL NAV
+       ============================================================ */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(238, 244, 249, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(203, 213, 225, 0.65);
+      padding: 12px 14px 10px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #0F766E 0%, #2563EB 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(15, 118, 110, 0.25);
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-subtitle {
+      margin: 1px 0 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      color: var(--accent-teal-dark);
+      font-size: 0.8rem;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+      flex-shrink: 0;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .header-action-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Horizontal Scrollable Pill Navigation */
+    .pill-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 4px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .pill-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 44px;
+      padding: 0 15px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      color: var(--text-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .nav-pill.active {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+    }
+
+    /* ============================================================
+       MAIN CONTENT & TAB SECTIONS
+       ============================================================ */
+    .app-main {
+      padding: 16px 14px 12px;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeSlideIn 0.25s ease-out;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stack-md {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ============================================================
+       INLINE SVG HERO BANNERS (Zero Broken Images!)
+       ============================================================ */
+    .hero-banner {
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      color: #FFFFFF;
+      padding: 20px 20px 18px;
+      box-shadow: 0 8px 24px rgba(15, 61, 62, 0.18);
+    }
+
+    .hero-cruise {
+      background: linear-gradient(135deg, #0F3D3E 0%, #0F766E 55%, #1D4ED8 100%);
+    }
+
+    .hero-miyako {
+      background: linear-gradient(135deg, #0369A1 0%, #0D9488 65%, #14B8A6 100%);
+    }
+
+    .hero-naha {
+      background: linear-gradient(135deg, #9F1239 0%, #C2410C 55%, #0F766E 100%);
+    }
+
+    .hero-ishigaki {
+      background: linear-gradient(135deg, #065F46 0%, #0D9488 55%, #0284C7 100%);
+    }
+
+    .hero-onboard {
+      background: linear-gradient(135deg, #1E1B4B 0%, #1E3A8A 55%, #0F766E 100%);
+    }
+
+    .hero-bg-svg {
+      position: absolute;
+      right: -12px;
+      bottom: -10px;
+      width: 190px;
+      height: 140px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.20);
+      backdrop-filter: blur(6px);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: 1.38rem;
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-time {
+      margin: 6px 0 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #CCFBF1;
+    }
+
+    .hero-desc {
+      margin: 6px 0 0;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.90);
+    }
+
+    /* ============================================================
+       CARDS & CALLOUT BOXES
+       ============================================================ */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      padding: 18px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-accent-teal {
+      border-left: 5px solid var(--accent-teal);
+    }
+
+    .card-accent-blue {
+      border-left: 5px solid var(--accent-blue);
+    }
+
+    .card-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .day-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .port-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: #EFF6FF;
+      color: var(--accent-blue-dark);
+    }
+
+    .port-badge.teal {
+      background: #F0FDFA;
+      color: var(--accent-teal-dark);
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .card-subtitle {
+      margin: 2px 0 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .big-time {
+      margin: 10px 0 8px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-teal-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    .big-time .arrow {
+      color: #94A3B8;
+      font-weight: 500;
+      margin: 0 4px;
+    }
+
+    .card-summary {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--text-body);
+    }
+
+    .card-summary strong {
+      color: var(--text-main);
+    }
+
+    /* Family Preferred Badge on Overview Card */
+    .picked-plan-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-soft);
+    }
+
+    .picked-plan-row.has-pick {
+      background: #FFFBEB;
+      border-color: #FDE68A;
+    }
+
+    .picked-plan-text {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .picked-plan-row.has-pick .picked-plan-text {
+      color: var(--star-text);
+    }
+
+    .jump-route-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 36px;
+      padding: 0 11px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-teal);
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .jump-route-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Soft Mint-Green Reminder Box */
+    .mint-box {
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-border);
+      color: var(--mint-text);
+      border-radius: var(--radius-inner);
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .mint-box-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin: 0 0 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .mint-box p {
+      margin: 0;
+      font-size: 0.84rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* Highlight & Warning Boxes */
+    .highlight-box {
+      background: #F0F9FF;
+      border: 1px solid #BAE6FD;
+      color: #0C4A6E;
+      border-radius: var(--radius-inner);
+      padding: 12px 14px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .warning-box {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      color: var(--amber-text);
+      border-radius: var(--radius-inner);
+      padding: 12px 14px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .footnote-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin: 4px 0;
+    }
+
+    /* ============================================================
+       OPEN-METEO 5-DAY WEATHER WIDGET
+       ============================================================ */
+    .section-heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .section-heading {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 900;
+      color: #0F4C81;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .weather-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .weather-island-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .weather-island-btn {
+      min-height: 44px;
+      border-radius: 12px;
+      background: #F1F5F9;
+      color: var(--text-body);
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .weather-island-btn.active {
+      background: var(--accent-teal);
+      color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(13, 148, 136, 0.25);
+    }
+
+    .weather-mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: #F1F5F9;
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .weather-mode-btn {
+      min-height: 40px;
+      border-radius: 9px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .weather-mode-btn.active {
+      background: var(--surface);
+      color: var(--accent-blue-dark);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    }
+
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+
+    .weather-col {
+      background: #F8FAFC;
+      border-radius: 12px;
+      padding: 10px 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .weather-date {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--accent-teal-dark);
+    }
+
+    .weather-day {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .weather-emoji {
+      font-size: 1.55rem;
+      line-height: 1.2;
+      margin: 4px 0;
+    }
+
+    .weather-temp {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .weather-rain {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0284C7;
+      white-space: nowrap;
+    }
+
+    .weather-tip {
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: #F0F9FF;
+      color: #075985;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .weather-status {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #F1F5F9;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       ISLAND PLAN SWITCHER & FAMILY PICKER
+       ============================================================ */
+    .plan-switcher {
+      display: flex;
+      gap: 6px;
+      background: var(--surface);
+      padding: 6px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .plan-tab-btn {
+      flex: 1;
+      min-height: 44px;
+      padding: 6px 6px;
+      border-radius: 12px;
+      background: #F1F5F9;
+      color: var(--text-body);
+      font-size: 0.82rem;
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      transition: all 0.2s ease;
+    }
+
+    .plan-tab-btn .plan-sub {
+      font-size: 0.7rem;
+      font-weight: 600;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .plan-tab-btn.active {
+      background: var(--accent-teal-dark);
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(15, 118, 110, 0.26);
+    }
+
+    .plan-panel {
+      display: none;
+    }
+
+    .plan-panel.active {
+      display: block;
+      animation: fadeSlideIn 0.22s ease-out;
+    }
+
+    .plan-top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #F1F5F9;
+      margin-bottom: 12px;
+    }
+
+    .plan-title-wrap {
+      flex: 1;
+    }
+
+    .plan-pill-tag {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--accent-teal-dark);
+      background: var(--mint-bg);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 6px;
+    }
+
+    .plan-heading {
+      margin: 0;
+      font-size: 1.12rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .pick-star-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 12px;
+      background: #F1F5F9;
+      color: var(--text-body);
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+      border: 1px solid var(--border-soft);
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .pick-star-btn.picked {
+      background: var(--star-bg);
+      color: var(--star-text);
+      border-color: #FCD34D;
+      box-shadow: 0 3px 10px rgba(245, 158, 11, 0.20);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .meta-chip {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .meta-chip .meta-k {
+      display: block;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.72rem;
+      margin-bottom: 2px;
+    }
+
+    .meta-chip .meta-v {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       ITINERARY TIMELINE STEPS
+       ============================================================ */
+    .timeline {
+      margin-top: 16px;
+    }
+
+    .step {
+      position: relative;
+      padding-left: 26px;
+      padding-bottom: 20px;
+    }
+
+    .step:last-child {
+      padding-bottom: 2px;
+    }
+
+    .step::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 16px;
+      bottom: -4px;
+      width: 2px;
+      background: #CBD5E1;
+    }
+
+    .step:last-child::before {
+      display: none;
+    }
+
+    .step-dot {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 4px solid var(--accent-teal);
+    }
+
+    .step-dot.return {
+      border-color: var(--accent-blue);
+    }
+
+    .step-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .step-time {
+      font-size: 0.94rem;
+      font-weight: 900;
+      color: var(--accent-teal-dark);
+    }
+
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .step-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #F1F5F9;
+      color: var(--text-body);
+      padding: 3px 8px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .step-desc {
+      margin: 5px 0 0;
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+
+    .step-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn-taxi {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 44px;
+      padding: 0 13px;
+      border-radius: 12px;
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-border);
+      color: var(--mint-text);
+      font-size: 0.82rem;
+      font-weight: 800;
+      transition: transform 0.15s ease;
+    }
+
+    .btn-taxi.return-btn {
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+      color: #1E40AF;
+    }
+
+    .btn-map {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 44px;
+      padding: 0 13px;
+      border-radius: 12px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-soft);
+      color: var(--text-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: transform 0.15s ease;
+    }
+
+    .btn-taxi:active, .btn-map:active {
+      transform: scale(0.96);
+    }
+
+    /* ============================================================
+       ONBOARD LUXURY & RITUALS
+       ============================================================ */
+    .info-item {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 13px 14px;
+    }
+
+    .info-item-title {
+      margin: 0 0 4px;
+      font-size: 0.94rem;
+      font-weight: 800;
+      color: var(--accent-teal-dark);
+    }
+
+    .info-item p {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+
+    .ritual-group-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-blue-dark);
+      background: #EFF6FF;
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      margin: 12px 0 8px;
+    }
+
+    .ritual-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-soft);
+      margin-bottom: 8px;
+      cursor: pointer;
+      min-height: 52px;
+      transition: all 0.2s ease;
+    }
+
+    .ritual-item.checked {
+      background: var(--mint-bg);
+      border-color: var(--mint-border);
+    }
+
+    .check-box {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      border: 2px solid #94A3B8;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      transition: all 0.15s ease;
+    }
+
+    .ritual-item.checked .check-box,
+    .checklist-row.checked .check-box {
+      background: var(--accent-teal);
+      border-color: var(--accent-teal);
+    }
+
+    .ritual-item.checked .ritual-title,
+    .checklist-row.checked .checklist-text {
+      text-decoration: line-through;
+      opacity: 0.65;
+    }
+
+    .ritual-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .ritual-desc {
+      margin: 2px 0 0;
+      font-size: 0.82rem;
+      color: var(--text-body);
+    }
+
+    /* ============================================================
+       TAB 6: INTERACTIVE CHECKLIST & COST TRANSPARENCY
+       ============================================================ */
+    .progress-wrap {
+      margin: 10px 0 14px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-teal-dark);
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      border-radius: var(--radius-pill);
+      background: #E2E8F0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0D9488 0%, #2563EB 100%);
+      border-radius: var(--radius-pill);
+      transition: width 0.3s ease;
+    }
+
+    .checklist-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      padding: 10px 12px;
+      border-radius: 13px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-soft);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .checklist-row.checked {
+      background: var(--mint-bg);
+      border-color: var(--mint-border);
+    }
+
+    .checklist-text {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .cost-tier {
+      border-radius: 16px;
+      padding: 15px;
+      margin-top: 10px;
+    }
+
+    .cost-tier.included {
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-border);
+    }
+
+    .cost-tier.verify {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+    }
+
+    .cost-tier.optional {
+      background: #F8FAFC;
+      border: 1px solid var(--border-soft);
+    }
+
+    .cost-tier h3 {
+      margin: 0 0 8px;
+      font-size: 0.96rem;
+      font-weight: 900;
+    }
+
+    .cost-tier.included h3 { color: var(--mint-text); }
+    .cost-tier.verify h3 { color: var(--amber-text); }
+    .cost-tier.optional h3 { color: var(--text-main); }
+
+    .cost-tier ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.84rem;
+      color: var(--text-body);
+    }
+
+    .cost-tier li {
+      margin-bottom: 6px;
+    }
+
+    .cost-tier li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Closing Banner & Export Button */
+    .closing-card {
+      background: linear-gradient(135deg, #0F3D3E 0%, #0F766E 100%);
+      color: #FFFFFF;
+      border-radius: 22px;
+      padding: 26px 20px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 61, 62, 0.22);
+    }
+
+    .closing-eyebrow {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: #99F6E4;
+      margin: 0 0 6px;
+    }
+
+    .closing-title {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 900;
+      line-height: 1.4;
+    }
+
+    .closing-sub {
+      margin: 6px 0 0;
+      font-size: 0.84rem;
+      color: #CCFBF1;
+    }
+
+    .export-footer {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .export-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      background: #FFFFFF;
+      color: #0F3D3E;
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
+      transition: transform 0.15s ease;
+    }
+
+    .export-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* ============================================================
+       FLOATING CURRENCY CONVERTER BUTTON
+       ============================================================ */
+    .floating-calc-btn {
+      position: fixed;
+      right: max(16px, calc(50% - 224px));
+      bottom: 22px;
+      z-index: 45;
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-float);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      transition: transform 0.15s ease;
+    }
+
+    .floating-calc-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* ============================================================
+       MODALS (TAXI FLASHCARD, PORT RETURN SELECTOR, CURRENCY CALC)
+       ============================================================ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      animation: fadeInBg 0.18s ease-out;
+    }
+
+    @keyframes fadeInBg {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 440px;
+      max-height: 92vh;
+      overflow-y: auto;
+      background: #FFFFFF;
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+      animation: popUp 0.2s ease-out;
+    }
+
+    @keyframes popUp {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .modal-pill {
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: #FEF3C7;
+      color: #92400E;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    .modal-close-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      color: var(--text-main);
+      font-size: 1.2rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Taxi Flashcard Display Board */
+    .taxi-board {
+      border: 3px solid #0F172A;
+      border-radius: 20px;
+      background: #F8FAFC;
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    .taxi-polite {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .taxi-jp-name {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #0F172A;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .taxi-reading {
+      margin: 8px 0 0;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0F766E;
+    }
+
+    .taxi-address {
+      margin: 10px 0 0;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-size: 0.84rem;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .taxi-zh-meta {
+      margin: 12px 0 14px;
+      text-align: center;
+    }
+
+    .taxi-zh-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .taxi-zh-est {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--accent-teal-dark);
+      margin-top: 3px;
+    }
+
+    .modal-action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-speak {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 14px;
+      background: #0F766E;
+      color: #FFFFFF;
+      font-size: 0.94rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+    }
+
+    .btn-primary-link {
+      min-height: 46px;
+      border-radius: 14px;
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      font-size: 0.88rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-secondary {
+      min-height: 46px;
+      border-radius: 14px;
+      background: #F1F5F9;
+      color: var(--text-main);
+      font-size: 0.88rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Port Return Selector List */
+    .port-return-item {
+      width: 100%;
+      text-align: left;
+      padding: 14px;
+      border-radius: 16px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-soft);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 64px;
+    }
+
+    .port-return-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .port-return-day {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--accent-teal-dark);
+    }
+
+    .port-return-name {
+      font-size: 0.96rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    /* Currency Converter Modal */
+    .calc-input-group {
+      margin-bottom: 12px;
+    }
+
+    .calc-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .calc-input {
+      width: 100%;
+      min-height: 52px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 2px solid #CBD5E1;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--text-main);
+      background: #F8FAFC;
+      outline: none;
+    }
+
+    .calc-input:focus {
+      border-color: var(--accent-blue);
+      background: #FFFFFF;
+    }
+
+    .calc-result-box {
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-border);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .calc-result-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--mint-text);
+    }
+
+    .calc-result-value {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent-teal-dark);
+      margin-top: 2px;
+    }
+
+    .calc-presets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .calc-chip {
+      min-height: 44px;
+      border-radius: 11px;
+      background: #EFF6FF;
+      color: var(--accent-blue-dark);
+      font-size: 0.8rem;
+      font-weight: 800;
+      border: 1px solid #BFDBFE;
+    }
+
+    .calc-rate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      background: #F8FAFC;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      margin-bottom: 14px;
+    }
+
+    .calc-rate-input {
+      width: 96px;
+      min-height: 40px;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 1px solid #CBD5E1;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    /* Toast Notification (Replaces alert) */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 84px;
+      transform: translateX(-50%) translateY(16px);
+      z-index: 200;
+      background: rgba(15, 23, 42, 0.92);
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 0.84rem;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.24);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- ============================================================
+         STICKY HEADER & 6-TAB PILL NAVIGATION
+         ============================================================ -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="brand-wrap">
+          <div class="brand-badge" aria-hidden="true">
+            <!-- Inline SVG Cruise Ship Icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 15L5.5 9.5H18.5L20 15" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 9.5V6H16V9.5" stroke="#99F6E4" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11 6V3.5H13V6" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"/>
+              <path d="M2.5 16.5C4.2 18 6.2 18 7.9 16.5C9.6 15 11.4 15 13.1 16.5C14.8 18 16.8 18 18.5 16.5C19.6 15.5 20.6 15.3 21.5 15.8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1 class="brand-title">MSC 地中海榮耀號</h1>
+            <p class="brand-subtitle">沖繩那霸・宮古島・石垣島｜2026.12.16–12.20</p>
+          </div>
+        </div>
+        <button type="button" class="header-action-btn" onclick="openPortReturnModal()">
+          <span>🚕</span><span>回港字卡</span>
+        </button>
+      </div>
+
+      <nav class="pill-nav" id="mainPillNav" aria-label="主導覽分頁">
+        <button type="button" class="nav-pill active" data-tab="overview" onclick="switchTab('overview')">🛳️ 航程天氣</button>
+        <button type="button" class="nav-pill" data-tab="miyako" onclick="switchTab('miyako')">🏝️ 宮古島</button>
+        <button type="button" class="nav-pill" data-tab="naha" onclick="switchTab('naha')">🌺 沖繩那霸</button>
+        <button type="button" class="nav-pill" data-tab="ishigaki" onclick="switchTab('ishigaki')">🥩 石垣島</button>
+        <button type="button" class="nav-pill" data-tab="onboard" onclick="switchTab('onboard')">✨ 船上慢活</button>
+        <button type="button" class="nav-pill" data-tab="costs" onclick="switchTab('costs')">💼 費用清單</button>
+      </nav>
+    </header>
+
+    <!-- ============================================================
+         MAIN CONTENT AREA
+         ============================================================ -->
+    <main class="app-main">
+
+      <!-- ==========================================================
+           TAB 1: 🛳️ 航程天氣
+           ========================================================== -->
+      <section id="tab-overview" class="tab-panel active">
+        <div class="stack-md">
+
+          <!-- Hero Banner -->
+          <div class="hero-banner hero-cruise">
+            <svg class="hero-bg-svg" viewBox="0 0 220 150" fill="none" aria-hidden="true">
+              <circle cx="170" cy="36" r="24" fill="#FFFFFF"/>
+              <path d="M22 104L42 66H168L188 104H22Z" fill="#FFFFFF"/>
+              <rect x="64" y="46" width="84" height="20" rx="5" fill="#99F6E4"/>
+              <rect x="92" y="30" width="28" height="16" rx="4" fill="#FFFFFF"/>
+              <path d="M8 122C26 112 44 112 62 122C80 132 98 132 116 122C134 112 152 112 170 122C188 132 204 132 214 126" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+            <div class="hero-content">
+              <div class="hero-tag-row">
+                <span class="hero-tag">⚓ 五日家族旅遊手冊</span>
+                <span class="hero-tag" id="countdownTag">2026.12.16 啟航</span>
+              </div>
+              <h2 class="hero-title">MSC 地中海榮耀號<br>沖繩三島海上假期</h2>
+              <p class="hero-desc">基隆港 ➔ 宮古島 ➔ 沖繩那霸 ➔ 石垣島 ➔ 基隆港</p>
+            </div>
+          </div>
+
+          <!-- Open-Meteo 5-Day Weather Widget -->
+          <div class="card">
+            <div class="section-heading-row">
+              <h2 class="section-heading"><span>🌤️</span><span id="weatherHeading">沖繩那霸五日天氣</span></h2>
+            </div>
+
+            <div class="weather-controls">
+              <div class="weather-island-pills" role="group" aria-label="選擇島嶼天氣">
+                <button type="button" class="weather-island-btn active" data-island="naha" onclick="selectWeatherIsland('naha')">🌺 沖繩那霸</button>
+                <button type="button" class="weather-island-btn" data-island="miyako" onclick="selectWeatherIsland('miyako')">🏝️ 宮古島</button>
+                <button type="button" class="weather-island-btn" data-island="ishigaki" onclick="selectWeatherIsland('ishigaki')">🥩 石垣島</button>
+              </div>
+
+              <div class="weather-mode-toggle" role="group" aria-label="切換天氣模式">
+                <button type="button" class="weather-mode-btn active" data-mode="live" onclick="selectWeatherMode('live')">📡 即時五日預報</button>
+                <button type="button" class="weather-mode-btn" data-mode="seasonal" onclick="selectWeatherMode('seasonal')">📅 12月航期參考</button>
+              </div>
+            </div>
+
+            <div class="weather-grid" id="weatherGrid">
+              <!-- Rendered dynamically by JavaScript -->
+            </div>
+
+            <div class="weather-tip" id="weatherTip">
+              🧥 12 月沖繩三島氣溫約 17°–22°C，海風較涼，建議採洋蔥式穿搭並攜帶輕薄防風外套與摺疊傘。
+            </div>
+
+            <div class="weather-status" id="weatherStatus">
+              ⏳ 正在更新即時預報 (Open-Meteo)...
+            </div>
+          </div>
+
+          <!-- 5-Day Voyage Rhythm Cards -->
+          <div class="section-heading-row" style="margin-bottom: -2px;">
+            <h2 class="section-heading"><span>🗓️</span><span>五日航程時間軸</span></h2>
+          </div>
+
+          <!-- DAY 1 -->
+          <article class="card card-accent-blue">
+            <div class="card-header-row">
+              <span class="day-label">🚢 DAY 1｜12/16 (三)</span>
+              <span class="port-badge">啟航登船日</span>
+            </div>
+            <h3 class="card-title">基隆港啟航</h3>
+            <p class="card-subtitle">基隆港旅客碼頭 ➔ 海上巡航</p>
+            <div class="big-time">表定 18:00 離港</div>
+            <p class="card-summary"><strong>當日重點：</strong>港務大樓報到托運、熟悉天幕大道與劇院晚宴。</p>
+            <div class="mint-box">
+              <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+              <p>依船票指定時段提早報到登船，登船後可先用 MSC for Me App 或觸控螢幕預約晚間劇院秀。</p>
+            </div>
+          </article>
+
+          <!-- DAY 2 -->
+          <article class="card card-accent-teal">
+            <div class="card-header-row">
+              <span class="day-label">🏝️ DAY 2｜12/17 (四)</span>
+              <span class="port-badge teal">宮古島・平良港</span>
+            </div>
+            <h3 class="card-title">宮古島</h3>
+            <p class="card-subtitle">漸層珊瑚海與輕鬆慢遊</p>
+            <div class="big-time">08:00 抵 <span class="arrow">➔</span> 18:00 離</div>
+            <p class="card-summary"><strong>當日重點：</strong>近郊漸層珊瑚海灘、平良市區採買或席吉拉渡假村海景慢遊。</p>
+            <div class="picked-plan-row" id="overview-pick-miyako">
+              <span class="picked-plan-text">尚未標記家族首選</span>
+              <button type="button" class="jump-route-btn" onclick="jumpToIsland('miyako')">查看詳細動線 →</button>
+            </div>
+            <div class="mint-box">
+              <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+              <p>建議於 <strong>16:00–16:30</strong> 返回平良港碼頭（離港前預留 1.5–2 小時充裕緩衝）。</p>
+            </div>
+          </article>
+
+          <!-- DAY 3 -->
+          <article class="card card-accent-teal">
+            <div class="card-header-row">
+              <span class="day-label">🌺 DAY 3｜12/18 (五)</span>
+              <span class="port-badge teal">沖繩那霸郵輪碼頭</span>
+            </div>
+            <h3 class="card-title">沖繩那霸</h3>
+            <p class="card-subtitle">南岸絕景・精品百貨・首里古都</p>
+            <div class="big-time">07:00 抵 <span class="arrow">➔</span> 19:00 離</div>
+            <p class="card-summary"><strong>當日重點：</strong>南部知念岬與瀨長島、新都心與 PARCO CITY 購物或首里城文化行。</p>
+            <div class="picked-plan-row" id="overview-pick-naha">
+              <span class="picked-plan-text">尚未標記家族首選</span>
+              <button type="button" class="jump-route-btn" onclick="jumpToIsland('naha')">查看詳細動線 →</button>
+            </div>
+            <div class="mint-box">
+              <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+              <p>建議於 <strong>16:30–17:00</strong> 返港（提早避開週五傍晚那霸市區下班車潮）。</p>
+            </div>
+          </article>
+
+          <!-- DAY 4 -->
+          <article class="card card-accent-teal">
+            <div class="card-header-row">
+              <span class="day-label">🥩 DAY 4｜12/19 (六)</span>
+              <span class="port-badge teal">石垣島・石垣港</span>
+            </div>
+            <h3 class="card-title">石垣島</h3>
+            <p class="card-subtitle">川平灣藍珊瑚與頂級石垣牛</p>
+            <div class="big-time">09:00 抵 <span class="arrow">➔</span> 19:00 離</div>
+            <p class="card-summary"><strong>當日重點：</strong>川平灣玻璃船、A5 石垣牛燒肉、公設市場或富崎海灘。</p>
+            <div class="picked-plan-row" id="overview-pick-ishigaki">
+              <span class="picked-plan-text">尚未標記家族首選</span>
+              <button type="button" class="jump-route-btn" onclick="jumpToIsland('ishigaki')">查看詳細動線 →</button>
+            </div>
+            <div class="mint-box">
+              <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+              <p>建議於 <strong>16:15–16:45</strong> 返回石垣港郵輪碼頭（離港前預留 2 小時以上緩衝）。</p>
+            </div>
+          </article>
+
+          <!-- DAY 5 -->
+          <article class="card card-accent-blue">
+            <div class="card-header-row">
+              <span class="day-label">🏡 DAY 5｜12/20 (日)</span>
+              <span class="port-badge">滿載而歸</span>
+            </div>
+            <h3 class="card-title">返抵基隆港</h3>
+            <p class="card-subtitle">石垣島 ➔ 基隆港旅客碼頭</p>
+            <div class="big-time">表定 07:00 抵港</div>
+            <p class="card-summary"><strong>當日重點：</strong>前晚完成行李托運與帳單核對，晨間享用早餐。</p>
+            <div class="mint-box">
+              <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+              <p>依船上廣播梯次從容下船，下船前再次確認護照、房卡與隨身戰利品。</p>
+            </div>
+          </article>
+
+          <p class="footnote-note">※ 實際最晚登船時間均以船上當日公告為準。</p>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           TAB 2: 🏝️ 宮古島 (DAY 2｜12/17 週四)
+           ========================================================== -->
+      <section id="tab-miyako" class="tab-panel">
+        <div class="stack-md">
+
+          <div class="hero-banner hero-miyako">
+            <svg class="hero-bg-svg" viewBox="0 0 220 150" fill="none" aria-hidden="true">
+              <circle cx="176" cy="34" r="22" fill="#FEF08A"/>
+              <path d="M12 108Q110 56 208 108" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+              <line x1="65" y1="86" x2="65" y2="120" stroke="#FFFFFF" stroke-width="5"/>
+              <line x1="110" y1="78" x2="110" y2="120" stroke="#FFFFFF" stroke-width="5"/>
+              <line x1="155" y1="86" x2="155" y2="120" stroke="#FFFFFF" stroke-width="5"/>
+              <path d="M6 126C30 118 54 118 78 126C102 134 126 134 150 126C174 118 198 118 214 126" stroke="#99F6E4" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+            <div class="hero-content">
+              <div class="hero-tag-row">
+                <span class="hero-tag">DAY 2｜12/17 (週四)</span>
+                <span class="hero-tag">平良港靠岸</span>
+              </div>
+              <h2 class="hero-title">宮古島岸上動線</h2>
+              <p class="hero-time">08:00 抵 ➔ 18:00 離</p>
+              <p class="hero-desc">大眾巴士班次較少，推薦以短程計程車輕鬆串聯海景與市區。</p>
+            </div>
+          </div>
+
+          <div class="mint-box" style="margin-top: 0;">
+            <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+            <p>建議於 <strong>16:00–16:30</strong> 前返回平良港碼頭，預留充裕緩衝（實際最晚登船時間依船上當日公告為準）。</p>
+          </div>
+
+          <!-- Plan Switcher -->
+          <div class="plan-switcher" role="tablist">
+            <button type="button" class="plan-tab-btn active" id="btn-miyako-A" onclick="switchPlan('miyako','A')">
+              <span>方案 A</span>
+              <span class="plan-sub">近郊海灘＋採買</span>
+            </button>
+            <button type="button" class="plan-tab-btn" id="btn-miyako-B" onclick="switchPlan('miyako','B')">
+              <span>方案 B</span>
+              <span class="plan-sub">席吉拉渡假村</span>
+            </button>
+          </div>
+
+          <!-- Miyako Plan A -->
+          <div id="panel-miyako-A" class="plan-panel active">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">短程計程車線</span>
+                  <h3 class="plan-heading">睡到自然醒・近郊海景與藥妝採買線</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-miyako-A" onclick="toggleFamilyPick('miyako','A','方案 A・近郊海景採買')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">想睡飽再下船、喜歡逛街採買伴手禮的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">低至中（砂山有緩坡沙地，可換平坦前濱海灘）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">岸上約 6.5 小時 (09:45–16:15)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚕 交通方式</span><span class="meta-v">計程車分段搭乘</span></div>
+              </div>
+
+              <div class="highlight-box">
+                <strong>💡 路線規劃亮點：</strong>範圍鎖定港口 15 分鐘生活圈，免包車拘束。若不想走砂山沙坡，改去平坦的「與那霸前濱海灘」時，回程順路順序建議調整為<strong>「前濱海灘 ➔ 唐吉訶德 ➔ 古謝宮古麵 ➔ 碼頭」</strong>更順路省車資。
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">09:45</span>
+                    <span class="step-title">碼頭搭乘排班計程車出發</span>
+                    <span class="step-badge">約 15 分｜¥1,800</span>
+                  </div>
+                  <p class="step-desc">出關後於碼頭排班計程車招呼站上車，直接出示下方日文字卡給司機。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:00</span>
+                    <span class="step-title">砂山海灘 或 與那霸前濱海灘</span>
+                    <span class="step-badge">停留約 75 分鐘</span>
+                  </div>
+                  <p class="step-desc">欣賞純白細沙與漸層珊瑚海，建議出發時先與司機約定回程接送時間。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('miyako_sunayama')">🚕 砂山海灘字卡</button>
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('miyako_maehama')">🚕 前濱海灘字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Sunayama+Beach+Miyakojima" target="_blank" rel="noopener noreferrer">📍 砂山導航</a>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Yonaha+Maehama+Beach+Miyakojima" target="_blank" rel="noopener noreferrer">📍 前濱導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">11:45</span>
+                    <span class="step-title">平良市區老店「古謝宮古麵」</span>
+                    <span class="step-badge">約 15 分｜¥1,800</span>
+                  </div>
+                  <p class="step-desc">預計停留 90 分鐘。品嚐在地人也愛的軟嫩入味豚骨柴魚湯麵。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('miyako_koja')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Koja+Sobaya+Miyakojima" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">13:45</span>
+                    <span class="step-title">唐吉訶德宮古島店 &amp; 咖啡午茶</span>
+                    <span class="step-badge">約 10 分｜¥1,200</span>
+                  </div>
+                  <p class="step-desc">預計停留 120 分鐘。寬敞平地賣場一站買齊日本藥妝、零食與宮古島雪鹽伴手禮。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('miyako_donki')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Don+Quijote+Miyakojima" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">16:00</span>
+                    <span class="step-title">搭車輕鬆返抵平良港郵輪碼頭</span>
+                    <span class="step-badge">約 10 分｜¥1,500</span>
+                  </div>
+                  <p class="step-desc">可請店家協助叫車，預留充裕緩衝從容登船休息。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_miyako')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Hirara+Port+Marine+Terminal+Miyakojima" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Miyako Plan B -->
+          <div id="panel-miyako-B" class="plan-panel">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">定點渡假計程車</span>
+                  <h3 class="plan-heading">席吉拉七哩渡假村・高空纜車看美景</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-miyako-B" onclick="toggleFamilyPick('miyako','B','方案 B・席吉拉渡假村')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">偏好單一定點慢遊、想輕鬆看海龜與喝下午茶的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">極低（園區步道平緩且有接駁）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">岸上約 6.5 小時 (09:45–16:15)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚕 交通方式</span><span class="meta-v">計程車直達來回</span></div>
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">09:45</span>
+                    <span class="step-title">港口搭排班計程車前往席吉拉渡假村</span>
+                    <span class="step-badge">約 25 分｜¥3,500</span>
+                  </div>
+                  <p class="step-desc">直達南岸 Shigira Seven Miles Resort，免去轉車奔波。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('miyako_shigira')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Shigira+Seven+Miles+Resort+Miyakojima" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:15</span>
+                    <span class="step-title">席吉拉海灘漫步 &amp; 渡假村海龜生態池</span>
+                    <span class="step-badge">停留 75 分鐘</span>
+                  </div>
+                  <p class="step-desc">全區步道平緩好走，可近距離觀賞可愛海龜與漸層湛藍海灘。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">11:30</span>
+                    <span class="step-title">渡假村餐廳海景午餐</span>
+                    <span class="step-badge">停留 90 分鐘</span>
+                  </div>
+                  <p class="step-desc">於園區餐廳輕鬆享用沖繩黑糖豬肉料理或海鮮義大利麵（以當日開放午間餐廳為準）。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">13:15</span>
+                    <span class="step-title">Ocean Sky 海景纜車 &amp; 飯店露台下午茶</span>
+                    <span class="step-badge">停留 105 分鐘</span>
+                  </div>
+                  <p class="step-desc">搭乘高空纜車俯瞰漸層「宮古藍」絕景；12 月若遇海風較大纜車停駛，可彈性改於渡假村海景露台咖啡廳慢享午茶或漫步海龜生態池。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('miyako_lift')">🚕 纜車字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=The+Shigira+Lift+Ocean+Sky+Miyakojima" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">15:30</span>
+                    <span class="step-title">叫計程車，16:00 返抵平良港碼頭</span>
+                    <span class="step-badge">約 25 分｜¥3,500</span>
+                  </div>
+                  <p class="step-desc">請飯店大廳櫃檯協助叫車，提早 2 小時返港休息。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_miyako')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Hirara+Port+Marine+Terminal+Miyakojima" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           TAB 3: 🌺 沖繩那霸 (DAY 3｜12/18 週五)
+           ========================================================== -->
+      <section id="tab-naha" class="tab-panel">
+        <div class="stack-md">
+
+          <div class="hero-banner hero-naha">
+            <svg class="hero-bg-svg" viewBox="0 0 220 150" fill="none" aria-hidden="true">
+              <path d="M35 58H185L172 42H48L35 58Z" fill="#FDE68A"/>
+              <path d="M52 72H168V62H52V72Z" fill="#FFFFFF"/>
+              <rect x="66" y="72" width="12" height="58" fill="#FFFFFF"/>
+              <rect x="142" y="72" width="12" height="58" fill="#FFFFFF"/>
+              <rect x="92" y="72" width="36" height="22" rx="3" fill="#FECDD3"/>
+            </svg>
+            <div class="hero-content">
+              <div class="hero-tag-row">
+                <span class="hero-tag">DAY 3｜12/18 (週五)</span>
+                <span class="hero-tag">那霸郵輪碼頭</span>
+              </div>
+              <h2 class="hero-title">沖繩那霸三路線</h2>
+              <p class="hero-time">07:00 抵 ➔ 19:00 離</p>
+              <p class="hero-desc">避開北部長途拉車與國道 58 號塞車，精選三條安心好玩的家族路線。</p>
+            </div>
+          </div>
+
+          <div class="mint-box" style="margin-top: 0;">
+            <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+            <p>週五傍晚那霸市區車多，建議於 <strong>16:30–17:00</strong> 前返回那霸郵輪碼頭（實際最晚登船時間以船上當日公告為準）。</p>
+          </div>
+
+          <!-- Plan Switcher -->
+          <div class="plan-switcher" role="tablist">
+            <button type="button" class="plan-tab-btn active" id="btn-naha-A" onclick="switchPlan('naha','A')">
+              <span>方案 A</span>
+              <span class="plan-sub">南部海景巴士</span>
+            </button>
+            <button type="button" class="plan-tab-btn" id="btn-naha-B" onclick="switchPlan('naha','B')">
+              <span>方案 B</span>
+              <span class="plan-sub">百貨海景燒肉</span>
+            </button>
+            <button type="button" class="plan-tab-btn" id="btn-naha-C" onclick="switchPlan('naha','C')">
+              <span>方案 C</span>
+              <span class="plan-sub">首里城阿古豬</span>
+            </button>
+          </div>
+
+          <!-- Naha Plan A -->
+          <div id="panel-naha-A" class="plan-panel active">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">KLOOK 南部觀光巴士</span>
+                  <h3 class="plan-heading">知念岬・玉泉洞・瀨長島海景巴士遊</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-naha-A" onclick="toggleFamilyPick('naha','A','方案 A・南部海景巴士')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">想輕鬆跟車看海景與鐘乳石洞的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">中（玉泉洞有階梯與濕滑步道，亦可只逛平地）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">岸上約 9 小時 (07:40–16:45)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚌 交通方式</span><span class="meta-v">計程車至集合點 + 觀光巴士</span></div>
+              </div>
+
+              <div class="highlight-box">
+                <strong>💡 路線規劃亮點：</strong>捨棄耗時 10 小時的北部水族館團，避開國道 58 號塞車，表定 15:30 回到那霸市區，全家人擁有超過 2 小時緩衝時間。
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">08:00</span>
+                    <span class="step-title">沖繩縣廳前（縣民廣場）集合發車</span>
+                    <span class="step-badge">約 8–10 分｜¥900</span>
+                  </div>
+                  <p class="step-desc">下船搭計程車約 8–10 分鐘抵達集合點，車上備有中文語音導覽。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('naha_kencho')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Okinawa+Prefectural+Office+Naha" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">09:00</span>
+                    <span class="step-title">知念岬公園</span>
+                    <span class="step-badge">停留 30 分鐘</span>
+                  </div>
+                  <p class="step-desc">平坦海濱步道，輕鬆飽覽 270 度太平洋蔚藍海景。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:00</span>
+                    <span class="step-title">沖繩世界文化王國 &amp; 玉泉洞</span>
+                    <span class="step-badge">停留 150 分鐘</span>
+                  </div>
+                  <p class="step-desc">欣賞壯觀鐘乳石洞、紅瓦古民家街區與震撼的傳統太鼓舞表演。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">13:30</span>
+                    <span class="step-title">瀨長島 Umikaji Terrace</span>
+                    <span class="step-badge">停留 90 分鐘</span>
+                  </div>
+                  <p class="step-desc">純白海景露台商場，一邊看飛機起降、一邊享用午餐與甜點。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">15:30</span>
+                    <span class="step-title">縣廳前 / 國際通解散，16:45 前搭車返港</span>
+                    <span class="step-badge">返港約 10 分</span>
+                  </div>
+                  <p class="step-desc">可順遊國際通約 1 小時買伴手禮，再搭計程車約 10 分鐘從容返港。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_naha')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Naha+Cruise+Terminal+Wakasa" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Naha Plan B -->
+          <div id="panel-naha-B" class="plan-panel">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">市區精品計程車</span>
+                  <h3 class="plan-heading">波上宮祈福・美術館與 PARCO CITY 購物線</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-naha-B" onclick="toggleFamilyPick('naha','B','方案 B・美術館與 PARCO CITY')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">偏愛室內舒適空間、想逛免稅精品與日本百貨的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">極低（全線平地與百貨電梯，雨天首選）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">岸上約 7 小時 (09:30–16:30)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚕 交通方式</span><span class="meta-v">短程計程車點對點</span></div>
+              </div>
+
+              <div class="highlight-box">
+                <strong>💡 路線規劃亮點：</strong>結合海崖神社、室內美術館與沖繩超好逛的浦添海岸 PARCO CITY，比國際通更寬敞舒適，不怕下雨或正午日曬。
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">09:30</span>
+                    <span class="step-title">波上宮祈福</span>
+                    <span class="step-badge">約 5 分｜¥800</span>
+                  </div>
+                  <p class="step-desc">停留 45 分鐘。離碼頭最近的海崖神社，計程車可直接停靠鳥居旁。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('naha_naminoue')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Naminoue+Shrine+Naha" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:30</span>
+                    <span class="step-title">沖繩縣立博物館・美術館</span>
+                    <span class="step-badge">約 15 分｜¥1,600</span>
+                  </div>
+                  <p class="step-desc">停留 90 分鐘。純白琉球石灰岩建築，室內動線平緩且冷暖氣舒適。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('naha_museum')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Okinawa+Prefectural+Museum+and+Art+Museum" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">12:15</span>
+                    <span class="step-title">PARCO CITY 3F 敘敘苑燒肉</span>
+                    <span class="step-badge">約 15–20 分｜¥2,200</span>
+                  </div>
+                  <p class="step-desc">自美術館搭計程車前往浦添海岸，享用頂級燒肉搭配無敵海景（強烈建議事先訂位）。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('naha_parco')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=San-A+Urasoe+West+Coast+PARCO+CITY" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">14:00</span>
+                    <span class="step-title">PARCO CITY 購物</span>
+                    <span class="step-badge">停留 135 分鐘</span>
+                  </div>
+                  <p class="step-desc">商場連通步行，一站買齊國際精品、日本電器、服飾與超市伴手禮。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">16:30</span>
+                    <span class="step-title">百貨排班計程車返抵那霸郵輪碼頭</span>
+                    <span class="step-badge">約 20 分｜¥2,400</span>
+                  </div>
+                  <p class="step-desc">避開 17:30 後的下班尖峰車潮，從容登船。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_naha')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Naha+Cruise+Terminal+Wakasa" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Naha Plan C -->
+          <div id="panel-naha-C" class="plan-panel">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">古都文化計程車</span>
+                  <h3 class="plan-heading">2026 首里城復原・阿古豬涮涮鍋與壺屋通</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-naha-C" onclick="toggleFamilyPick('naha','C','方案 C・首里城與阿古豬')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">喜愛歷史建築、名家陶器與地道阿古豬料理的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">低至中（指定高處首里杜館下車省爬坡）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">岸上約 7 小時 (09:30–16:30)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚕 交通方式</span><span class="meta-v">計程車分段搭乘</span></div>
+              </div>
+
+              <div class="highlight-box">
+                <strong>💡 2026 開館重點：</strong>首里城正殿已於 <strong>2026 年 11 月 23 日</strong>正式重新開館！剛開放期間可能實施人流管制，進入正殿內部建議出發前先至官網確認預約時段與門票規定（成人參考 ¥1,000）。
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">09:30</span>
+                    <span class="step-title">碼頭搭車直達「首里杜館」遊客中心</span>
+                    <span class="step-badge">約 25 分｜¥2,500</span>
+                  </div>
+                  <p class="step-desc">直接搭到地勢較高的入口，替長輩與全家人省去長段上坡。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('naha_shuri')">🚕 高處下車字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Suimuikan+Shurijo+Castle+Park" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:00</span>
+                    <span class="step-title">首里城公園巡禮</span>
+                    <span class="step-badge">停留 90 分鐘</span>
+                  </div>
+                  <p class="step-desc">參觀守禮門與 2026 全新復原正殿區域，見證琉球王國歷史風華。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">12:00</span>
+                    <span class="step-title">琉球料理乃我那霸 或 阿古豬涮涮鍋名店</span>
+                    <span class="step-badge">約 15 分｜¥1,600</span>
+                  </div>
+                  <p class="step-desc">停留 90 分鐘。品嚐清甜軟嫩的沖繩阿古豬（熱門名店務必事先訂位）。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('naha_agu')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Noganaha+Agu+Pork+Naha" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">14:00</span>
+                    <span class="step-title">壺屋通陶瓷街 (Yachimun Street) &amp; 泡泡茶</span>
+                    <span class="step-badge">約 10 分｜¥1,000</span>
+                  </div>
+                  <p class="step-desc">停留 120 分鐘。漫步平坦石板街挑選琉球陶器，坐下來體驗傳統泡泡茶。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('naha_yachimun')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Tsuboya+Yachimun+Street+Naha" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">16:15</span>
+                    <span class="step-title">搭車從容返抵那霸郵輪碼頭</span>
+                    <span class="step-badge">約 12 分｜¥1,400</span>
+                  </div>
+                  <p class="step-desc">預留充裕緩衝時間登船休息，準備晚間船上晚宴。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_naha')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Naha+Cruise+Terminal+Wakasa" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           TAB 4: 🥩 石垣島 (DAY 4｜12/19 週六)
+           ========================================================== -->
+      <section id="tab-ishigaki" class="tab-panel">
+        <div class="stack-md">
+
+          <div class="hero-banner hero-ishigaki">
+            <svg class="hero-bg-svg" viewBox="0 0 220 150" fill="none" aria-hidden="true">
+              <path d="M18 118C52 84 92 84 126 118H18Z" fill="#6EE7B7"/>
+              <path d="M104 118C136 74 176 74 208 118H104Z" fill="#A7F3D0"/>
+              <path d="M56 120L66 106H118L128 120H56Z" fill="#FFFFFF"/>
+              <path d="M10 132C36 124 62 124 88 132C114 140 140 140 166 132C186 126 202 126 214 130" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <div class="hero-content">
+              <div class="hero-tag-row">
+                <span class="hero-tag">DAY 4｜12/19 (週六)</span>
+                <span class="hero-tag">石垣港新港碼頭</span>
+              </div>
+              <h2 class="hero-title">石垣島三路線</h2>
+              <p class="hero-time">09:00 抵 ➔ 19:00 離</p>
+              <p class="hero-desc">米其林三星川平灣、A5 石垣牛燒肉或西岸天使棧橋古民家慢遊。</p>
+            </div>
+          </div>
+
+          <div class="mint-box" style="margin-top: 0;">
+            <div class="mint-box-title">🧳 家族回船緩衝提醒</div>
+            <p>建議於 <strong>16:15–16:45</strong> 前返回石垣港郵輪碼頭（實際最晚登船時間務必以船上當日公告為準）。</p>
+          </div>
+
+          <!-- Plan Switcher -->
+          <div class="plan-switcher" role="tablist">
+            <button type="button" class="plan-tab-btn active" id="btn-ishigaki-A" onclick="switchPlan('ishigaki','A')">
+              <span>方案 A</span>
+              <span class="plan-sub">川平灣巴士團</span>
+            </button>
+            <button type="button" class="plan-tab-btn" id="btn-ishigaki-B" onclick="switchPlan('ishigaki','B')">
+              <span>方案 B</span>
+              <span class="plan-sub">石垣牛＋市場</span>
+            </button>
+            <button type="button" class="plan-tab-btn" id="btn-ishigaki-C" onclick="switchPlan('ishigaki','C')">
+              <span>方案 C</span>
+              <span class="plan-sub">西岸天使棧橋</span>
+            </button>
+          </div>
+
+          <!-- Ishigaki Plan A -->
+          <div id="panel-ishigaki-A" class="plan-panel active">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">KLOOK 岸上觀光團</span>
+                  <h3 class="plan-heading">川平灣玻璃船・八重山民俗村一日遊</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-ishigaki-A" onclick="toggleFamilyPick('ishigaki','A','方案 A・川平灣觀光團')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">想省去叫車、直接搭巴士遊覽北岸代表景點的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">低至中（步道平緩）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">約 6–7 小時 (10:20–16:30/17:30)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚌 交通方式</span><span class="meta-v">團體旅遊巴士</span></div>
+              </div>
+
+              <div class="warning-box">
+                <strong>⚠️ 重要回船緩衝提醒：</strong>此為第三方平台行程（非郵輪官方保證延誤等待團），商品表定 17:50 返港時間較緊。強烈建議於最後一站「石垣市公設市場（約 16:15）」告知導遊提前離團，自行搭計程車（約 8–10 分鐘、¥1,200）提早於 16:30 返港！
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:20</span>
+                    <span class="step-title">石垣港郵輪碼頭指定地點集合發車</span>
+                    <span class="step-badge">依憑證集合</span>
+                  </div>
+                  <p class="step-desc">依訂購憑證指示於碼頭集合上車。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">11:00</span>
+                    <span class="step-title">米其林三星「川平灣」玻璃底船</span>
+                    <span class="step-badge">停留 90 分鐘</span>
+                  </div>
+                  <p class="step-desc">免下水坐船欣賞清澈海底藍珊瑚與熱帶魚群。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">13:00</span>
+                    <span class="step-title">石垣八重山民俗村 &amp; 御神崎燈塔</span>
+                    <span class="step-badge">停留 120 分鐘</span>
+                  </div>
+                  <p class="step-desc">親近森林裡的可愛松鼠猴、欣賞紅瓦古宅與海崖燈塔景觀。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">15:15</span>
+                    <span class="step-title">石垣市公設市場自由逛街</span>
+                    <span class="step-badge">停留 60 分鐘</span>
+                  </div>
+                  <p class="step-desc">在遮雨商店街採買伴手禮、品嚐現炙石垣牛握壽司。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">16:15–16:30</span>
+                    <span class="step-title">公設市場提前離團搭計程車返港</span>
+                    <span class="step-badge">約 10 分｜¥1,200</span>
+                  </div>
+                  <p class="step-desc">告知導遊後於公設市場旁搭計程車提早返回石垣港碼頭最安心。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_ishigaki')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Ishigaki+Port+Cruise+Terminal" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ishigaki Plan B -->
+          <div id="panel-ishigaki-B" class="plan-panel">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">美食採買計程車</span>
+                  <h3 class="plan-heading">翡翠海展望台・頂級石垣牛與公設市場線</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-ishigaki-B" onclick="toggleFamilyPick('ishigaki','B','方案 B・頂級石垣牛與公設市場')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">以品嚐正宗石垣牛燒肉與市區購物為首要目標的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">極低（下車即看景、拱廊平地好走）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">約 6.5 小時 (10:00–16:30)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚕 交通方式</span><span class="meta-v">短程計程車點對點</span></div>
+              </div>
+
+              <div class="highlight-box">
+                <strong>💡 路線規劃亮點：</strong>跟團通常午餐時間短無法好好烤肉；此路線讓全家人從容享用 2 小時石垣牛午間盛宴，下午在離碼頭僅 10 分鐘的公設市場逛街，時間最安心。
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:00</span>
+                    <span class="step-title">港口搭乘排班計程車出發</span>
+                    <span class="step-badge">約 20 分｜¥2,200</span>
+                  </div>
+                  <p class="step-desc">請司機於山上展望台稍候 30 分鐘後原車載全家人下山前往燒肉店。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('ishigaki_banna')">🚕 含等候30分字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Emerald+Sea+Viewing+Platform+Ishigaki" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:25</span>
+                    <span class="step-title">Banna 公園「翡翠海之展望台」</span>
+                    <span class="step-badge">停留 35 分鐘</span>
+                  </div>
+                  <p class="step-desc">下車即達雙層觀景台，遠眺八重山群島與竹富島夢幻海景。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">11:30</span>
+                    <span class="step-title">炭火燒肉「金城」或「石垣屋」</span>
+                    <span class="step-badge">約 15 分｜¥1,800</span>
+                  </div>
+                  <p class="step-desc">停留 120 分鐘。大口享用頂級石垣牛燒肉套餐（熱門名店務必事先預約）。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('ishigaki_yakiniku')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Ishigakiya+Yakiniku+Ishigaki" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">13:45</span>
+                    <span class="step-title">石垣市公設市場 &amp; 邊銀食堂辣油</span>
+                    <span class="step-badge">停留 150 分鐘</span>
+                  </div>
+                  <p class="step-desc">有遮雨棚的平地商店街，輕鬆採買辣油、黑糖與海鹽伴手禮。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('ishigaki_market')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Ishigaki+Public+Market" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">16:15–16:30</span>
+                    <span class="step-title">公設市場招呼站搭車返抵石垣港碼頭</span>
+                    <span class="step-badge">約 10 分｜¥1,200</span>
+                  </div>
+                  <p class="step-desc">車程僅約 10 分鐘，預留充裕緩衝從容登船。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_ishigaki')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Ishigaki+Port+Cruise+Terminal" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ishigaki Plan C -->
+          <div id="panel-ishigaki-C" class="plan-panel">
+            <div class="card card-accent-teal">
+              <div class="plan-top-bar">
+                <div class="plan-title-wrap">
+                  <span class="plan-pill-tag">西岸風情計程車</span>
+                  <h3 class="plan-heading">富崎天使棧橋・百年古民家會席與海景牧場</h3>
+                </div>
+                <button type="button" class="pick-star-btn" id="pick-ishigaki-C" onclick="toggleFamilyPick('ishigaki','C','方案 C・西岸天使棧橋與舟藏之里')">
+                  ⭐ 設為家族首選
+                </button>
+              </div>
+
+              <div class="meta-grid">
+                <div class="meta-chip"><span class="meta-k">👨‍👩‍👧‍👦 適合誰</span><span class="meta-v">喜歡拍海景美照、想在百年古宅聽三線琴用餐的家人</span></div>
+                <div class="meta-chip"><span class="meta-k">👟 體力需求</span><span class="meta-v">極低（三景點車程皆 5–15 分內，平坦好走）</span></div>
+                <div class="meta-chip"><span class="meta-k">⏱️ 預估停留</span><span class="meta-v">約 6.5 小時 (09:45–16:15)</span></div>
+                <div class="meta-chip"><span class="meta-k">🚕 交通方式</span><span class="meta-v">短程計程車分段搭乘</span></div>
+              </div>
+
+              <div class="highlight-box">
+                <strong>💡 路線規劃亮點：</strong>富崎海灘、舟藏之里與 Mirumiru 本店正好位於石垣島西岸同一條順路動線上，距離港口僅 15 分鐘，不用拉車去北部也能享受絕美海灘與頂級鄉土料理。
+              </div>
+
+              <div class="timeline">
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">09:45</span>
+                    <span class="step-title">港口搭乘排班計程車前往富崎海灘</span>
+                    <span class="step-badge">約 15 分｜¥2,000</span>
+                  </div>
+                  <p class="step-desc">直達西海岸 Fusaki Beach Resort。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('ishigaki_fusaki')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Fusaki+Beach+Resort+Hotel+and+Villas+Ishigaki" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">10:00</span>
+                    <span class="step-title">富崎海灘「天使棧橋 Angel Pier」</span>
+                    <span class="step-badge">停留 90 分鐘</span>
+                  </div>
+                  <p class="step-desc">平坦純白棧橋延伸入海，非常適合拍下絕美的海島全家福。</p>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">11:45</span>
+                    <span class="step-title">百年古民家「舟藏之里」會席料理</span>
+                    <span class="step-badge">約 5 分｜¥800</span>
+                  </div>
+                  <p class="step-desc">停留 120 分鐘。於紅瓦老宅聽三線琴演奏，品嚐石垣牛會席與鄉土御膳（建議事先訂位）。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('ishigaki_funakura')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Funakura+no+Sato+Ishigaki" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot"></div>
+                  <div class="step-head">
+                    <span class="step-time">14:00</span>
+                    <span class="step-title">Mirumiru 本舖 本店</span>
+                    <span class="step-badge">約 5 分｜¥800</span>
+                  </div>
+                  <p class="step-desc">停留 90 分鐘。在半山腰遼闊草坪遠眺海景，品嚐現做鮮乳紅芋冰淇淋。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi" onclick="openTaxiCard('ishigaki_mirumiru')">🚕 司機字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Mirumiru+Honpo+Main+Shop+Ishigaki" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+
+                <div class="step">
+                  <div class="step-dot return"></div>
+                  <div class="step-head">
+                    <span class="step-time">15:45</span>
+                    <span class="step-title">請店家協助叫車，16:15 返抵郵輪碼頭</span>
+                    <span class="step-badge">約 15 分｜¥1,800</span>
+                  </div>
+                  <p class="step-desc">預留超過 2 小時充裕緩衝時間登船休息。</p>
+                  <div class="step-actions">
+                    <button type="button" class="btn-taxi return-btn" onclick="openTaxiCard('port_ishigaki')">🚕 回碼頭字卡</button>
+                    <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=Ishigaki+Port+Cruise+Terminal" target="_blank" rel="noopener noreferrer">📍 導航</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           TAB 5: ✨ 船上慢活
+           ========================================================== -->
+      <section id="tab-onboard" class="tab-panel">
+        <div class="stack-md">
+
+          <div class="hero-banner hero-onboard">
+            <svg class="hero-bg-svg" viewBox="0 0 220 150" fill="none" aria-hidden="true">
+              <path d="M20 130C20 60 200 60 200 130" stroke="#99F6E4" stroke-width="6"/>
+              <path d="M46 130C46 82 174 82 174 130" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="6 6"/>
+              <circle cx="80" cy="48" r="5" fill="#FEF08A"/>
+              <circle cx="122" cy="34" r="7" fill="#FFFFFF"/>
+              <circle cx="158" cy="54" r="4" fill="#FEF08A"/>
+            </svg>
+            <div class="hero-content">
+              <div class="hero-tag-row">
+                <span class="hero-tag">✨ 海上移動行宮</span>
+                <span class="hero-tag">MSC Bellissima</span>
+              </div>
+              <h2 class="hero-title">船上免費設施與慢活儀式</h2>
+              <p class="hero-desc">免排隊、免走遠路，輕鬆享受五天四夜海上五星假期。</p>
+            </div>
+          </div>
+
+          <!-- Section 1: Complimentary -->
+          <div class="card card-accent-teal">
+            <div class="section-heading-row">
+              <h3 class="section-heading">🍽️ 船票內含免費餐飲與設施</h3>
+            </div>
+            <p class="card-subtitle" style="margin-bottom: 12px;">酒水、軟性飲料及主餐廳加購龍蝦牛排除外</p>
+            <div class="stack-md" style="gap: 10px;">
+              <div class="info-item">
+                <h4 class="info-item-title">三大免費主餐廳（海王 Posidonia / 燈塔 Il Faro / 櫻桃 Le Cerisier）</h4>
+                <p>依房卡指定其中一間免費用餐，提供桌邊單點服務（晚餐分梯次入席）。</p>
+              </div>
+              <div class="info-item">
+                <h4 class="info-item-title">市集自助餐廳（Marketplace Buffet 15 樓）</h4>
+                <p>每日約 20 小時免費供應中西日料理、披薩、水果與冷熱水／美式咖啡。</p>
+              </div>
+              <div class="info-item">
+                <h4 class="info-item-title">倫敦大劇院 &amp; 榮耀天幕大道</h4>
+                <p>劇院歌舞秀免費入場（需於船上 App 或觸控螢幕預約場次）；80 公尺 LED 天幕與水晶梯全天開放。</p>
+              </div>
+              <div class="info-item">
+                <h4 class="info-item-title">大氣層泳池 &amp; 室內溫水池</h4>
+                <p>免費使用泳池、甲板躺椅與海景健身房（需自備泳衣與運動鞋）。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: 8 Curated Rituals -->
+          <div class="card card-accent-blue">
+            <div class="section-heading-row">
+              <h3 class="section-heading">🌟 家族專屬 8 項慢活儀式</h3>
+              <span class="port-badge teal" id="ritualCounter">0 / 8 已體驗</span>
+            </div>
+            <p class="card-subtitle">點一下卡片即可為全家人紀錄已達成的船上享受：</p>
+
+            <div id="ritualListContainer">
+              <!-- Rendered dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Section 3: Optional Upgrades -->
+          <div class="card">
+            <div class="section-heading-row">
+              <h3 class="section-heading">💳 船上自選項目與消費提醒</h3>
+            </div>
+            <p class="card-subtitle" style="margin-bottom: 12px;">船上消費皆以美金 (USD) 計價並綁定房卡</p>
+            <div class="stack-md" style="gap: 10px;">
+              <div class="info-item">
+                <h4 class="info-item-title">💲 郵輪服務費 &amp; 離境稅核對</h4>
+                <p>部分方案已含服務費；未預付標準參考為成人每晚 USD 18，另加日本國際觀光旅客稅 ¥1,000（約 USD 7）。</p>
+              </div>
+              <div class="info-item">
+                <h4 class="info-item-title">📶 衛星網路 Wi-Fi</h4>
+                <p>公海期間需購衛星網路（瀏覽／串流方案）；靠岸日本三島期間可直接切換自備日本漫遊或網卡。</p>
+              </div>
+              <div class="info-item">
+                <h4 class="info-item-title">☕ 海上星巴克與 Jean-Philippe 午茶</h4>
+                <p>天幕大道設有海上星巴克與法國大師手工巧克力咖啡館，單點計費（另加 15% 船上服務費）。</p>
+              </div>
+              <div class="info-item">
+                <h4 class="info-item-title">🎭 特色主題餐廳、特技秀與水療</h4>
+                <p>海渡鐵板燒、美式牛排屋、旋轉木馬劇場特技秀及 Aurea SPA（依個人喜好預約加購）。</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           TAB 6: 💼 費用清單
+           ========================================================== -->
+      <section id="tab-costs" class="tab-panel">
+        <div class="stack-md">
+
+          <!-- Interactive Family Checklist -->
+          <div class="card card-accent-teal">
+            <div class="section-heading-row">
+              <h2 class="section-heading">✅ 家族行前與登船檢查清單</h2>
+            </div>
+            <p class="card-subtitle">勾選紀錄自動保存在手機中，全家一起核對不漏帶！</p>
+
+            <div class="progress-wrap">
+              <div class="progress-meta">
+                <span>行前準備進度</span>
+                <span id="checklistProgressText">0 / 9 完成 (0%)</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="checklistProgressBar"></div>
+              </div>
+            </div>
+
+            <div id="checklistContainer">
+              <!-- Rendered dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- 3-Tier Cost Transparency -->
+          <div class="card">
+            <div class="section-heading-row">
+              <h2 class="section-heading">💼 家族旅遊費用透明分類</h2>
+            </div>
+            <p class="card-subtitle">實際金額與條款均以最終訂位確認單及供應商公告為準</p>
+
+            <div class="cost-tier included">
+              <h3>✅ 一、船票已包含項目</h3>
+              <ul>
+                <li><strong>海上住宿：</strong>五天四夜住宿與客房清潔服務。</li>
+                <li><strong>免費餐飲：</strong>指定主餐廳（早午晚餐）與 15 樓市集自助餐廳免費區。</li>
+                <li><strong>娛樂設施：</strong>倫敦大劇院歌舞秀（需預約）、室內外泳池、健身房與天幕大道活動。</li>
+              </ul>
+            </div>
+
+            <div class="cost-tier verify">
+              <h3>📋 二、可能另付項目（依最終確認單核對）</h3>
+              <ul>
+                <li><strong>郵輪服務費：</strong>未含於船票者，成人參考 USD 18／晚。</li>
+                <li><strong>港口稅與日本離境稅：</strong>日本國際觀光旅客稅 ¥1,000（約 USD 7），通常由船方代收。</li>
+                <li><strong>海外旅平與郵輪不便險：</strong>建議出發前加保含行程延誤之旅遊保險。</li>
+              </ul>
+            </div>
+
+            <div class="cost-tier optional">
+              <h3>🛍️ 三、依個人選擇產生之費用</h3>
+              <ul>
+                <li><strong>岸上交通與行程：</strong>KLOOK 巴士團費或日本當地計程車跳錶車資。</li>
+                <li><strong>岸上門票與餐飲：</strong>首里城門票、觀光景點門票、岸上燒肉與涮涮鍋等餐廳實際消費。</li>
+                <li><strong>船上自費項目：</strong>衛星 Wi-Fi、星巴克與酒水、主題餐廳、旋轉木馬特技秀與 SPA。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Warm Closing Banner & 1-Click Export -->
+          <div class="closing-card">
+            <p class="closing-eyebrow">BON VOYAGE</p>
+            <h3 class="closing-title">預祝全家人擁有一趟難忘的榮耀之旅</h3>
+            <p class="closing-sub">2026.12.16 – 12.20 ｜ MSC Bellissima</p>
+            <div class="export-footer">
+              <button type="button" class="export-btn" onclick="exportCleanHtml()">
+                <span>💾</span><span>下載完整 index.html（可直接上傳 GitHub Pages）</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ============================================================
+         FLOATING JPY ➔ TWD CURRENCY CONVERTER BUTTON
+         ============================================================ -->
+    <button type="button" class="floating-calc-btn" onclick="openCalcModal()" aria-label="開啟日幣匯率換算器">
+      <span>💴</span><span>換算</span>
+    </button>
+  </div>
+
+  <!-- ============================================================
+       MODAL 1: FULL-SCREEN JAPANESE TAXI DRIVER CARD
+       ============================================================ -->
+  <div id="taxiModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="taxiJpName" onclick="backdropClose(event, 'taxiModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-pill">🚕 請直接出示此畫面給日本司機</span>
+        <button type="button" class="modal-close-btn" onclick="closeModal('taxiModal')" aria-label="關閉">✕</button>
+      </div>
+
+      <div class="taxi-board">
+        <p class="taxi-polite" id="taxiPolite">運転手さん、こちらまでお願いします。</p>
+        <h2 class="taxi-jp-name" id="taxiJpName"></h2>
+        <p class="taxi-reading" id="taxiReading"></p>
+        <p class="taxi-address" id="taxiAddress"></p>
+      </div>
+
+      <div class="taxi-zh-meta">
+        <div class="taxi-zh-title" id="taxiZhTitle"></div>
+        <div class="taxi-zh-est" id="taxiZhEst"></div>
+      </div>
+
+      <div class="modal-action-stack">
+        <button type="button" class="btn-speak" id="speakBtn" onclick="speakCurrentTaxiJp()">
+          <span>🔊</span><span>日文語音朗讀給司機聽</span>
+        </button>
+        <div class="modal-action-row">
+          <a id="taxiMapLink" class="btn-primary-link" href="#" target="_blank" rel="noopener noreferrer">📍 開啟地圖導航</a>
+          <button type="button" class="btn-secondary" onclick="closeModal('taxiModal')">關閉畫面</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL 2: QUICK 3-PORT RETURN TAXI SELECTOR
+       ============================================================ -->
+  <div id="portReturnModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="三島回碼頭司機字卡" onclick="backdropClose(event, 'portReturnModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-pill">⚓ 三島回郵輪碼頭司機字卡</span>
+        <button type="button" class="modal-close-btn" onclick="closeModal('portReturnModal')" aria-label="關閉">✕</button>
+      </div>
+      <p style="margin: 0 0 12px; font-size: 0.84rem; color: #475569;">點選當日停靠港，立刻放大出示日文字卡給計程車司機：</p>
+
+      <button type="button" class="port-return-item" onclick="closeModal('portReturnModal'); openTaxiCard('port_miyako');">
+        <div>
+          <div class="port-return-day">DAY 2｜12/17 (四) 宮古島（建議 16:00–16:30 返港）</div>
+          <div class="port-return-name">平良港クルーズ船ターミナル</div>
+        </div>
+        <span style="font-size: 1.2rem;">🚕</span>
+      </button>
+
+      <button type="button" class="port-return-item" onclick="closeModal('portReturnModal'); openTaxiCard('port_naha');">
+        <div>
+          <div class="port-return-day">DAY 3｜12/18 (五) 沖繩那霸（建議 16:30–17:00 返港）</div>
+          <div class="port-return-name">那覇クルーズターミナル（若狭バース）</div>
+        </div>
+        <span style="font-size: 1.2rem;">🚕</span>
+      </button>
+
+      <button type="button" class="port-return-item" onclick="closeModal('portReturnModal'); openTaxiCard('port_ishigaki');">
+        <div>
+          <div class="port-return-day">DAY 4｜12/19 (六) 石垣島（建議 16:15–16:45 返港）</div>
+          <div class="port-return-name">石垣港 新港地区 クルーズ船ターミナル</div>
+        </div>
+        <span style="font-size: 1.2rem;">🚕</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL 3: FLOATING JPY ➔ TWD CURRENCY CONVERTER
+       ============================================================ -->
+  <div id="calcModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="日幣台幣即時換算" onclick="backdropClose(event, 'calcModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-pill">💴 日幣 JPY ➔ 台幣 TWD 換算</span>
+        <button type="button" class="modal-close-btn" onclick="closeModal('calcModal')" aria-label="關閉">✕</button>
+      </div>
+
+      <div class="calc-input-group">
+        <label class="calc-label" for="jpyInput">輸入日幣金額 (¥ JPY)</label>
+        <input type="number" inputmode="numeric" id="jpyInput" class="calc-input" placeholder="例如：1800" oninput="updateCurrency()" />
+      </div>
+
+      <div class="calc-presets">
+        <button type="button" class="calc-chip" onclick="setJpyPreset(1000)">¥1,000</button>
+        <button type="button" class="calc-chip" onclick="setJpyPreset(1800)">¥1,800</button>
+        <button type="button" class="calc-chip" onclick="setJpyPreset(3500)">¥3,500</button>
+        <button type="button" class="calc-chip" onclick="setJpyPreset(10000)">¥10,000</button>
+      </div>
+
+      <div class="calc-result-box">
+        <div class="calc-result-label">約合新台幣 (NT$ TWD)</div>
+        <div class="calc-result-value" id="twdResult">NT$ 0</div>
+      </div>
+
+      <div class="calc-rate-row">
+        <label for="rateInput" style="font-size: 0.84rem; font-weight: 700; color: #334155;">自訂匯率（1 日圓 ＝ 台幣）</label>
+        <input type="number" step="0.001" id="rateInput" class="calc-rate-input" value="0.215" oninput="saveAndUpdateRate()" />
+      </div>
+
+      <div class="modal-action-row">
+        <button type="button" class="btn-secondary" onclick="clearCalc()">清除歸零</button>
+        <button type="button" class="btn-primary-link" onclick="closeModal('calcModal')">完成</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Non-blocking Toast Message -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ============================================================
+       NATIVE JAVASCRIPT APPLICATION LOGIC
+       ============================================================ -->
+  <script>
+    (function () {
+      "use strict";
+
+      /* ----------------------------------------------------------
+         STORAGE HELPERS (Safe for Private Browsing / iFrames)
+         ---------------------------------------------------------- */
+      function getStoredJson(key, fallback) {
+        try {
+          var raw = localStorage.getItem(key);
+          return raw ? JSON.parse(raw) : fallback;
+        } catch (e) {
+          return fallback;
+        }
+      }
+
+      function setStoredJson(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+          /* Ignore storage quota or sandbox restrictions */
+        }
+      }
+
+      /* ----------------------------------------------------------
+         TOAST NOTIFICATION
+         ---------------------------------------------------------- */
+      var toastTimer = null;
+      window.showToast = function (msg) {
+        var el = document.getElementById("toast");
+        if (!el) return;
+        el.textContent = msg;
+        el.classList.add("show");
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          el.classList.remove("show");
+        }, 2400);
+      };
+
+      /* ----------------------------------------------------------
+         1. MAIN TAB & ISLAND PLAN NAVIGATION
+         ---------------------------------------------------------- */
+      window.switchTab = function (tabId) {
+        var panels = document.querySelectorAll(".tab-panel");
+        panels.forEach(function (panel) {
+          panel.classList.toggle("active", panel.id === "tab-" + tabId);
+        });
+
+        var pills = document.querySelectorAll("#mainPillNav .nav-pill");
+        pills.forEach(function (pill) {
+          var isActive = pill.getAttribute("data-tab") === tabId;
+          pill.classList.toggle("active", isActive);
+          if (isActive && pill.scrollIntoView) {
+            pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+          }
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      window.switchPlan = function (island, planKey) {
+        ["A", "B", "C"].forEach(function (k) {
+          var btn = document.getElementById("btn-" + island + "-" + k);
+          var panel = document.getElementById("panel-" + island + "-" + k);
+          if (btn) btn.classList.toggle("active", k === planKey);
+          if (panel) panel.classList.toggle("active", k === planKey);
+        });
+      };
+
+      window.jumpToIsland = function (island) {
+        var picks = getStoredJson("msc_family_picks_v1", {});
+        window.switchTab(island);
+        if (picks[island] && picks[island].plan) {
+          window.switchPlan(island, picks[island].plan);
+        }
+      };
+
+      /* ----------------------------------------------------------
+         2. FAMILY PREFERRED PLAN PICKER (localStorage)
+         ---------------------------------------------------------- */
+      function renderFamilyPicks() {
+        var picks = getStoredJson("msc_family_picks_v1", {});
+        var islands = {
+          miyako: ["A", "B"],
+          naha: ["A", "B", "C"],
+          ishigaki: ["A", "B", "C"]
+        };
+
+        Object.keys(islands).forEach(function (island) {
+          var current = picks[island] || null;
+          islands[island].forEach(function (planKey) {
+            var btn = document.getElementById("pick-" + island + "-" + planKey);
+            if (!btn) return;
+            var isPicked = current && current.plan === planKey;
+            btn.classList.toggle("picked", !!isPicked);
+            btn.textContent = isPicked ? "⭐ 已設為家族首選" : "⭐ 設為家族首選";
+          });
+
+          var overviewRow = document.getElementById("overview-pick-" + island);
+          if (overviewRow) {
+            var labelEl = overviewRow.querySelector(".picked-plan-text");
+            if (current) {
+              overviewRow.classList.add("has-pick");
+              labelEl.textContent = "⭐ 家族首選：" + current.label;
+            } else {
+              overviewRow.classList.remove("has-pick");
+              labelEl.textContent = "尚未標記家族首選路線";
+            }
+          }
+        });
+      }
+
+      window.toggleFamilyPick = function (island, planKey, label) {
+        var picks = getStoredJson("msc_family_picks_v1", {});
+        if (picks[island] && picks[island].plan === planKey) {
+          delete picks[island];
+          showToast("已取消該島嶼的家族首選標記");
+        } else {
+          picks[island] = { plan: planKey, label: label };
+          showToast("⭐ 已設為家族首選：" + label);
+        }
+        setStoredJson("msc_family_picks_v1", picks);
+        renderFamilyPicks();
+      };
+
+      /* ----------------------------------------------------------
+         3. OPEN-METEO LIVE 5-DAY WEATHER WIDGET
+         ---------------------------------------------------------- */
+      var WEATHER_ISLANDS = {
+        naha: {
+          name: "沖繩那霸",
+          lat: 26.2124,
+          lon: 127.6809,
+          seasonal: [
+            { date: "12/16", day: "(三)", icon: "⛅", min: 17, max: 21, rain: 25 },
+            { date: "12/17", day: "(四)", icon: "🌤️", min: 18, max: 22, rain: 20 },
+            { date: "12/18", day: "(五)", icon: "☀️", min: 18, max: 22, rain: 15 },
+            { date: "12/19", day: "(六)", icon: "🌤️", min: 17, max: 21, rain: 20 },
+            { date: "12/20", day: "(日)", icon: "☁️", min: 17, max: 20, rain: 30 }
+          ]
+        },
+        miyako: {
+          name: "宮古島",
+          lat: 24.8055,
+          lon: 125.2811,
+          seasonal: [
+            { date: "12/16", day: "(三)", icon: "⛅", min: 18, max: 22, rain: 25 },
+            { date: "12/17", day: "(四)", icon: "🌤️", min: 18, max: 22, rain: 18 },
+            { date: "12/18", day: "(五)", icon: "☀️", min: 19, max: 23, rain: 15 },
+            { date: "12/19", day: "(六)", icon: "🌤️", min: 18, max: 22, rain: 20 },
+            { date: "12/20", day: "(日)", icon: "☁️", min: 18, max: 21, rain: 25 }
+          ]
+        },
+        ishigaki: {
+          name: "石垣島",
+          lat: 24.3407,
+          lon: 124.1556,
+          seasonal: [
+            { date: "12/16", day: "(三)", icon: "🌤️", min: 18, max: 22, rain: 20 },
+            { date: "12/17", day: "(四)", icon: "🌤️", min: 19, max: 23, rain: 20 },
+            { date: "12/18", day: "(五)", icon: "☀️", min: 19, max: 23, rain: 15 },
+            { date: "12/19", day: "(六)", icon: "🌤️", min: 19, max: 22, rain: 20 },
+            { date: "12/20", day: "(日)", icon: "⛅", min: 18, max: 21, rain: 25 }
+          ]
+        }
+      };
+
+      var weatherState = {
+        island: "naha",
+        mode: "live",
+        cache: {}
+      };
+
+      function wmoToEmoji(code) {
+        if (code === 0) return "☀️";
+        if (code === 1 || code === 2) return "🌤️";
+        if (code === 3) return "☁️";
+        if (code >= 45 && code <= 48) return "🌫️";
+        if (code >= 51 && code <= 67) return "🌦️";
+        if (code >= 80 && code <= 82) return "🌧️";
+        if (code >= 95) return "⛈️";
+        return "⛅";
+      }
+
+      function renderWeather() {
+        var cfg = WEATHER_ISLANDS[weatherState.island];
+        var headingEl = document.getElementById("weatherHeading");
+        var gridEl = document.getElementById("weatherGrid");
+        var statusEl = document.getElementById("weatherStatus");
+        var tipEl = document.getElementById("weatherTip");
+
+        document.querySelectorAll(".weather-island-btn").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-island") === weatherState.island);
+        });
+        document.querySelectorAll(".weather-mode-btn").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-mode") === weatherState.mode);
+        });
+
+        headingEl.textContent = cfg.name + "五日天氣";
+
+        var liveData = weatherState.cache[weatherState.island];
+        var useLive = weatherState.mode === "live" && liveData;
+        var list = useLive ? liveData : cfg.seasonal;
+
+        gridEl.innerHTML = list.map(function (d) {
+          return (
+            '<div class="weather-col">' +
+              '<div class="weather-date">' + d.date + '</div>' +
+              '<div class="weather-day">' + d.day + '</div>' +
+              '<div class="weather-emoji">' + d.icon + '</div>' +
+              '<div class="weather-temp">' + d.min + '°/' + d.max + '°</div>' +
+              '<div class="weather-rain">💧 ' + d.rain + '%</div>' +
+            '</div>'
+          );
+        }).join("");
+
+        if (weatherState.mode === "seasonal") {
+          tipEl.textContent = "🧥 12/16–12/20 冬季沖繩三島氣溫約 17°–22°C，海邊與甲板風大體感偏涼，建議洋蔥式穿搭＋防風外套與摺疊傘。";
+          statusEl.textContent = "📅 顯示 12 月中旬航期氣候參考（離線也可隨時查閱）";
+        } else if (useLive) {
+          tipEl.textContent = "🧥 冬季海風較涼、偶有短暫陣雨，下船旅遊建議攜帶防風薄外套與輕便摺疊傘。";
+          statusEl.textContent = "✅ 即時預報 (Open-Meteo)，每次開啟自動更新";
+        } else {
+          tipEl.textContent = "🧥 12 月沖繩三島氣溫約 17°–22°C，海風較涼，建議攜帶防風外套與摺疊傘。";
+          statusEl.textContent = "⚠️ 目前無法連線即時預報，已自動切換顯示 12 月航期氣候參考";
+        }
+      }
+
+      function fetchWeatherForIsland(islandKey) {
+        var cfg = WEATHER_ISLANDS[islandKey];
+        var statusEl = document.getElementById("weatherStatus");
+        if (weatherState.cache[islandKey]) {
+          renderWeather();
+          return;
+        }
+        if (statusEl && weatherState.mode === "live") {
+          statusEl.textContent = "⏳ 正在取得 " + cfg.name + " 即時五日預報 (Open-Meteo)...";
+        }
+        var url =
+          "https://api.open-meteo.com/v1/forecast?latitude=" + cfg.lat +
+          "&longitude=" + cfg.lon +
+          "&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=5";
+
+        fetch(url)
+          .then(function (res) {
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            return res.json();
+          })
+          .then(function (data) {
+            var daysZh = ["(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)"];
+            var parsed = data.daily.time.slice(0, 5).map(function (dateStr, i) {
+              var parts = dateStr.split("-");
+              var dt = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+              return {
+                date: Number(parts[1]) + "/" + parts[2],
+                day: daysZh[dt.getDay()],
+                icon: wmoToEmoji(data.daily.weathercode[i]),
+                min: Math.round(data.daily.temperature_2m_min[i]),
+                max: Math.round(data.daily.temperature_2m_max[i]),
+                rain: data.daily.precipitation_probability_max && data.daily.precipitation_probability_max[i] != null
+                  ? data.daily.precipitation_probability_max[i]
+                  : 15
+              };
+            });
+            weatherState.cache[islandKey] = parsed;
+            if (weatherState.island === islandKey) {
+              renderWeather();
+            }
+          })
+          .catch(function () {
+            if (weatherState.island === islandKey) {
+              renderWeather();
+            }
+          });
+      }
+
+      window.selectWeatherIsland = function (islandKey) {
+        weatherState.island = islandKey;
+        renderWeather();
+        if (weatherState.mode === "live") {
+          fetchWeatherForIsland(islandKey);
+        }
+      };
+
+      window.selectWeatherMode = function (mode) {
+        weatherState.mode = mode;
+        renderWeather();
+        if (mode === "live") {
+          fetchWeatherForIsland(weatherState.island);
+        }
+      };
+
+      /* ----------------------------------------------------------
+         4. JAPANESE TAXI DRIVER CARDS + SPEECH SYNTHESIS
+         ---------------------------------------------------------- */
+      var TAXI_CARDS = {
+        miyako_sunayama: {
+          polite: "運転手さん、こちらまでお願いします。75分後にまた迎えに来ていただけますか？",
+          jp: "砂山ビーチ",
+          reading: "すなやまビーチ（Sunayama Beach）",
+          address: "沖縄県宮古島市平良荷川取",
+          zh: "宮古島｜砂山海灘",
+          est: "車程約 15 分鐘｜預估車資 ¥1,800",
+          map: "https://www.google.com/maps/search/?api=1&query=Sunayama+Beach+Miyakojima",
+          speak: "運転手さん、砂山ビーチまでお願いします。"
+        },
+        miyako_maehama: {
+          polite: "運転手さん、こちらまでお願いします。75分後にまた迎えに来ていただけますか？",
+          jp: "与那覇前浜ビーチ",
+          reading: "よなはまえはまビーチ（Yonaha Maehama Beach）",
+          address: "沖縄県宮古島市下地与那覇",
+          zh: "宮古島｜與那霸前濱海灘（平坦免爬坡）",
+          est: "車程約 15 分鐘｜預估車資 ¥1,800–¥2,000",
+          map: "https://www.google.com/maps/search/?api=1&query=Yonaha+Maehama+Beach+Miyakojima",
+          speak: "運転手さん、与那覇前浜ビーチまでお願いします。"
+        },
+        miyako_koja: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "古謝そば屋",
+          reading: "こじゃそばや（Koja Sobaya）",
+          address: "沖縄県宮古島市平良字下里1517-1",
+          zh: "宮古島｜平良市區老店「古謝宮古麵」",
+          est: "車程約 15 分鐘｜預估車資 ¥1,800",
+          map: "https://www.google.com/maps/search/?api=1&query=Koja+Sobaya+Miyakojima",
+          speak: "運転手さん、平良の古謝そば屋までお願いします。"
+        },
+        miyako_donki: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "ドン・キホーテ 宮古島店",
+          reading: "ドン・キホーテ みやこじまてん（Don Quijote）",
+          address: "沖縄県宮古島市平良西里1283",
+          zh: "宮古島｜唐吉訶德宮古島店",
+          est: "車程約 10 分鐘｜預估車資 ¥1,200",
+          map: "https://www.google.com/maps/search/?api=1&query=Don+Quijote+Miyakojima",
+          speak: "運転手さん、ドン・キホーテ宮古島店までお願いします。"
+        },
+        miyako_shigira: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "シギラセブンマイルズリゾート",
+          reading: "Shigira Seven Miles Resort（シギラビーチ周辺）",
+          address: "沖縄県宮古島市上野新里1405-214",
+          zh: "宮古島｜席吉拉七哩渡假村",
+          est: "車程約 25 分鐘｜預估車資 ¥3,500",
+          map: "https://www.google.com/maps/search/?api=1&query=Shigira+Seven+Miles+Resort+Miyakojima",
+          speak: "運転手さん、シギラセブンマイルズリゾートまでお願いします。"
+        },
+        miyako_lift: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "ザ シギラリフト オーシャンスカイ",
+          reading: "The Shigira Lift Ocean Sky",
+          address: "沖縄県宮古島市上野新里（シギラリゾート内）",
+          zh: "宮古島｜Ocean Sky 海景纜車",
+          est: "位於席吉拉渡假園區內",
+          map: "https://www.google.com/maps/search/?api=1&query=The+Shigira+Lift+Ocean+Sky+Miyakojima",
+          speak: "運転手さん、ザ・シギラリフト・オーシャンスカイまでお願いします。"
+        },
+        port_miyako: {
+          polite: "運転手さん、クルーズ船の乗り場までお願いします。",
+          jp: "平良港クルーズ船ターミナル",
+          reading: "ひららこう クルーズせんターミナル（Hirara Port）",
+          address: "沖縄県宮古島市平良西里（マリンターミナル・MSCベリッシマ）",
+          zh: "回船｜宮古島平良港郵輪碼頭",
+          est: "建議 16:00–16:30 前返抵碼頭",
+          map: "https://www.google.com/maps/search/?api=1&query=Hirara+Port+Marine+Terminal+Miyakojima",
+          speak: "運転手さん、平良港のクルーズ船ターミナルまでお願いします。"
+        },
+        naha_kencho: {
+          polite: "運転手さん、観光バスの集合場所までお願いします。",
+          jp: "沖縄県庁前（県民広場）",
+          reading: "おきなわけんちょうまえ けんみんひろば",
+          address: "沖縄県那覇市泉崎1-2-2（パレットくもじ前）",
+          zh: "沖繩那霸｜沖繩縣廳前（縣民廣場集合點）",
+          est: "車程約 8–10 分鐘｜預估車資 ¥900",
+          map: "https://www.google.com/maps/search/?api=1&query=Okinawa+Prefectural+Office+Naha",
+          speak: "運転手さん、沖縄県庁前の県民広場までお願いします。"
+        },
+        naha_naminoue: {
+          polite: "運転手さん、上の鳥居の近くまでお願いします。",
+          jp: "波上宮（なみのうえぐう）",
+          reading: "Naminoue Shrine",
+          address: "沖縄県那覇市若狭1-25-11",
+          zh: "沖繩那霸｜波上宮神社（鳥居旁下車）",
+          est: "車程約 5 分鐘｜預估車資 ¥800",
+          map: "https://www.google.com/maps/search/?api=1&query=Naminoue+Shrine+Naha",
+          speak: "運転手さん、波上宮の鳥居の近くまでお願いします。"
+        },
+        naha_museum: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "沖縄県立博物館・美術館",
+          reading: "おきなわけんりつはくぶつかん・びじゅつかん（おもろまち）",
+          address: "沖縄県那覇市おもろまち3-1-1",
+          zh: "沖繩那霸｜沖繩縣立博物館・美術館（新都心）",
+          est: "車程約 15 分鐘｜預估車資 ¥1,600",
+          map: "https://www.google.com/maps/search/?api=1&query=Okinawa+Prefectural+Museum+and+Art+Museum",
+          speak: "運転手さん、おもろまちの沖縄県立博物館・美術館までお願いします。"
+        },
+        naha_parco: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "サンエー浦添西海岸 PARCO CITY",
+          reading: "うらそえにしかいがん パルコシティ",
+          address: "沖縄県浦添市西洲3-1-1（3F 叙々苑）",
+          zh: "沖繩浦添｜PARCO CITY（3F 敘敘苑燒肉）",
+          est: "自美術館出發約 15–20 分鐘｜預估車資 ¥2,200",
+          map: "https://www.google.com/maps/search/?api=1&query=San-A+Urasoe+West+Coast+PARCO+CITY",
+          speak: "運転手さん、サンエー浦添西海岸パルコシティまでお願いします。"
+        },
+        naha_shuri: {
+          polite: "運転手さん、坂を登らずに行ける上の入口「首里杜館」の前で降ろしてください。",
+          jp: "首里城公園「首里杜館」",
+          reading: "しゅりじょうこうえん すいむいかん（高處入口）",
+          address: "沖縄県那覇市首里金城町1-2（首里杜館レストラン・売店前）",
+          zh: "沖繩那霸｜首里城「首里杜館」高處入口（省爬坡）",
+          est: "車程約 25 分鐘｜預估車資 ¥2,500",
+          map: "https://www.google.com/maps/search/?api=1&query=Suimuikan+Shurijo+Castle+Park",
+          speak: "運転手さん、首里城公園の上の入口、首里杜館の前までお願いします。"
+        },
+        naha_agu: {
+          polite: "運転手さん、予約しているアグー豚しゃぶしゃぶのお店までお願いします。",
+          jp: "琉球料理 乃我那覇（アグーしゃぶしゃぶ店）",
+          reading: "りゅうきゅうりょうり のがなは",
+          address: "沖縄県那覇市（出發前請確認實際訂位分店地址）",
+          zh: "沖繩那霸｜琉球料理乃我那霸／阿古豬涮涮鍋名店",
+          est: "車程約 15 分鐘｜預估車資 ¥1,600",
+          map: "https://www.google.com/maps/search/?api=1&query=Noganaha+Agu+Pork+Naha",
+          speak: "運転手さん、琉球料理、乃我那覇までお願いします。"
+        },
+        naha_yachimun: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "壺屋やちむん通り",
+          reading: "つぼや やちむんどおり（Tsuboya Yachimun Street）",
+          address: "沖縄県那覇市壺屋1丁目",
+          zh: "沖繩那霸｜壺屋通陶瓷街",
+          est: "車程約 10 分鐘｜預估車資 ¥1,000",
+          map: "https://www.google.com/maps/search/?api=1&query=Tsuboya+Yachimun+Street+Naha",
+          speak: "運転手さん、壺屋やちむん通りまでお願いします。"
+        },
+        port_naha: {
+          polite: "運転手さん、クルーズ船の乗り場までお願いします。",
+          jp: "那覇クルーズターミナル（若狭バース）",
+          reading: "なはクルーズターミナル わかさバース（Naha Cruise Terminal）",
+          address: "沖縄県那覇市若狭1-27-11（大型客船 MSCベリッシマ）",
+          zh: "回船｜那霸郵輪碼頭（若狹碼頭）",
+          est: "建議 16:30–17:00 前返抵碼頭（避開下班車潮）",
+          map: "https://www.google.com/maps/search/?api=1&query=Naha+Cruise+Terminal+Wakasa",
+          speak: "運転手さん、那覇クルーズターミナル、若狭バースまでお願いします。"
+        },
+        ishigaki_banna: {
+          polite: "運転手さん、展望台で30分ほど待機していただき、そのまま下山して焼肉店までお願いできますか？",
+          jp: "バンナ公園「エメラルドの海を見る展望台」",
+          reading: "エメラルドのうみをみるてんぼうだい（30分待機希望）",
+          address: "沖縄県石垣市登野城2241-1",
+          zh: "石垣島｜Banna 公園 翡翠海之展望台（請司機等候 30 分鐘）",
+          est: "車程約 20 分鐘｜預估車資 ¥2,200（另加等候跳錶）",
+          map: "https://www.google.com/maps/search/?api=1&query=Emerald+Sea+Viewing+Platform+Ishigaki",
+          speak: "運転手さん、バンナ公園のエメラルドの海を見る展望台までお願いします。30分ほど待機していただけますか？"
+        },
+        ishigaki_yakiniku: {
+          polite: "運転手さん、予約している石垣牛の焼肉店までお願いします。",
+          jp: "炭火焼肉 金城 ／ 石垣屋 ／ やまもと",
+          reading: "やきにく きんじょう ／ いしがきや ／ やまもと",
+          address: "沖縄県石垣市（請指給司機實際預約的燒肉店名）",
+          zh: "石垣島｜石垣牛炭火燒肉名店",
+          est: "車程約 15 分鐘｜預估車資 ¥1,800",
+          map: "https://www.google.com/maps/search/?api=1&query=Ishigakiya+Yakiniku+Ishigaki",
+          speak: "運転手さん、予約している石垣牛の焼肉店までお願いします。"
+        },
+        ishigaki_market: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "石垣市公設市場（ユーグレナモール）",
+          reading: "いしがきし こうせついちば（Euglena Mall）",
+          address: "沖縄県石垣市大川208",
+          zh: "石垣島｜石垣市公設市場商店街",
+          est: "市區拱廊平地好走",
+          map: "https://www.google.com/maps/search/?api=1&query=Ishigaki+Public+Market",
+          speak: "運転手さん、石垣市公設市場、ユーグレナモールまでお願いします。"
+        },
+        ishigaki_fusaki: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "フサキビーチリゾート ホテル＆ヴィラズ",
+          reading: "Fusaki Beach Resort Hotel & Villas",
+          address: "沖縄県石垣市新川1625",
+          zh: "石垣島｜富崎海灘渡假村・天使棧橋",
+          est: "車程約 15 分鐘｜預估車資 ¥2,000",
+          map: "https://www.google.com/maps/search/?api=1&query=Fusaki+Beach+Resort+Hotel+and+Villas+Ishigaki",
+          speak: "運転手さん、フサキビーチリゾートまでお願いします。"
+        },
+        ishigaki_funakura: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "舟蔵の里（ふなくらのさと）",
+          reading: "Funakura no Sato",
+          address: "沖縄県石垣市新川2468-1",
+          zh: "石垣島｜百年古民家「舟藏之里」會席料理",
+          est: "車程約 5 分鐘｜預估車資 ¥800",
+          map: "https://www.google.com/maps/search/?api=1&query=Funakura+no+Sato+Ishigaki",
+          speak: "運転手さん、郷土料理の舟蔵の里までお願いします。"
+        },
+        ishigaki_mirumiru: {
+          polite: "運転手さん、こちらまでお願いします。",
+          jp: "ミルミル本舗 本店",
+          reading: "みるみるほんぽ ほんてん（Mirumiru Honpo）",
+          address: "沖縄県石垣市新川1583-74",
+          zh: "石垣島｜Mirumiru 本舖 本店（半山腰海景冰淇淋）",
+          est: "車程約 5 分鐘｜預估車資 ¥800",
+          map: "https://www.google.com/maps/search/?api=1&query=Mirumiru+Honpo+Main+Shop+Ishigaki",
+          speak: "運転手さん、新川のミルミル本舗本店までお願いします。"
+        },
+        port_ishigaki: {
+          polite: "運転手さん、クルーズ船の乗り場までお願いします。",
+          jp: "石垣港 新港地区 クルーズ船ターミナル",
+          reading: "いしがきこう しんこうちく クルーズせんターミナル",
+          address: "沖縄県石垣市新栄町（大型客船乗り場・MSCベリッシマ）",
+          zh: "回船｜石垣港新港郵輪碼頭",
+          est: "建議 16:15–16:45 前返抵碼頭",
+          map: "https://www.google.com/maps/search/?api=1&query=Ishigaki+Port+Cruise+Terminal",
+          speak: "運転手さん、石垣港新港地区のクルーズ船ターミナルまでお願いします。"
+        }
+      };
+
+      var currentSpeakText = "";
+
+      window.openTaxiCard = function (cardId) {
+        var card = TAXI_CARDS[cardId];
+        if (!card) return;
+        document.getElementById("taxiPolite").textContent = card.polite;
+        document.getElementById("taxiJpName").textContent = card.jp;
+        document.getElementById("taxiReading").textContent = card.reading;
+        document.getElementById("taxiAddress").textContent = card.address;
+        document.getElementById("taxiZhTitle").textContent = card.zh;
+        document.getElementById("taxiZhEst").textContent = card.est;
+        document.getElementById("taxiMapLink").href = card.map;
+        currentSpeakText = card.speak;
+        openModal("taxiModal");
+      };
+
+      window.speakCurrentTaxiJp = function () {
+        if (!("speechSynthesis" in window)) {
+          showToast("此裝置瀏覽器不支援語音朗讀，請直接出示字卡畫面");
+          return;
+        }
+        try {
+          window.speechSynthesis.cancel();
+          var utter = new SpeechSynthesisUtterance(currentSpeakText);
+          utter.lang = "ja-JP";
+          utter.rate = 0.92;
+          var btn = document.getElementById("speakBtn");
+          btn.innerHTML = "<span>🔊</span><span>正在播放日文語音...</span>";
+          utter.onend = function () {
+            btn.innerHTML = "<span>🔊</span><span>日文語音朗讀給司機聽</span>";
+          };
+          utter.onerror = function () {
+            btn.innerHTML = "<span>🔊</span><span>日文語音朗讀給司機聽</span>";
+          };
+          window.speechSynthesis.speak(utter);
+        } catch (e) {
+          showToast("語音播放暫時無法使用，請直接出示日文字卡");
+        }
+      };
+
+      /* ----------------------------------------------------------
+         5. MODAL OPEN / CLOSE HELPERS
+         ---------------------------------------------------------- */
+      function openModal(id) {
+        var modal = document.getElementById(id);
+        if (!modal) return;
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      window.closeModal = function (id) {
+        var modal = document.getElementById(id);
+        if (!modal) return;
+        modal.classList.remove("open");
+        if (id === "taxiModal" && "speechSynthesis" in window) {
+          try { window.speechSynthesis.cancel(); } catch (e) {}
+        }
+        var stillOpen = document.querySelector(".modal-backdrop.open");
+        if (!stillOpen) {
+          document.body.style.overflow = "";
+        }
+      };
+
+      window.backdropClose = function (event, id) {
+        if (event.target && event.target.id === id) {
+          window.closeModal(id);
+        }
+      };
+
+      window.openPortReturnModal = function () {
+        openModal("portReturnModal");
+      };
+
+      /* ----------------------------------------------------------
+         6. FLOATING JPY ➔ TWD CURRENCY CONVERTER
+         ---------------------------------------------------------- */
+      window.openCalcModal = function () {
+        openModal("calcModal");
+        setTimeout(function () {
+          var inp = document.getElementById("jpyInput");
+          if (inp) inp.focus();
+        }, 120);
+      };
+
+      window.updateCurrency = function () {
+        var jpy = parseFloat(document.getElementById("jpyInput").value);
+        var rate = parseFloat(document.getElementById("rateInput").value) || 0.215;
+        var out = document.getElementById("twdResult");
+        if (isNaN(jpy) || jpy <= 0) {
+          out.textContent = "NT$ 0";
+          return;
+        }
+        var twd = Math.round(jpy * rate);
+        out.textContent = "NT$ " + twd.toLocaleString("zh-TW");
+      };
+
+      window.setJpyPreset = function (amount) {
+        document.getElementById("jpyInput").value = amount;
+        window.updateCurrency();
+      };
+
+      window.saveAndUpdateRate = function () {
+        var val = parseFloat(document.getElementById("rateInput").value);
+        if (!isNaN(val) && val > 0) {
+          setStoredJson("msc_jpy_rate_v1", val);
+        }
+        window.updateCurrency();
+      };
+
+      window.clearCalc = function () {
+        document.getElementById("jpyInput").value = "";
+        window.updateCurrency();
+      };
+
+      /* ----------------------------------------------------------
+         7. ONBOARD 8 RITUALS (Interactive)
+         ---------------------------------------------------------- */
+      var RITUAL_GROUPS = [
+        {
+          label: "🌅 晨間喚醒",
+          items: [
+            { id: "r1", title: "陽台客房早餐", desc: "專人送達私人陽台，面海安靜享用熱食。" },
+            { id: "r2", title: "18 樓天際酒廊", desc: "避開人潮靜賞 360 度晨曦海景。" }
+          ]
+        },
+        {
+          label: "☕ 午後愜意",
+          items: [
+            { id: "r3", title: "天幕大道精品巡禮", desc: "璀璨天幕下從容選購歐系免稅名品。" },
+            { id: "r4", title: "Jean-Philippe 法國大師甜點坊", desc: "品嚐手工巧克力與義式咖啡。" },
+            { id: "r5", title: "Aurea 溫熱水療", desc: "享受海景桑拿與峇里島精油舒緩按摩。" }
+          ]
+        },
+        {
+          label: "🌙 璀璨夜晚",
+          items: [
+            { id: "r6", title: "主餐廳尊榮晚宴", desc: "專屬侍者桌邊服務，品味歐陸三道式佳餚。" },
+            { id: "r7", title: "倫敦大劇院看秀", desc: "預約最佳視角欣賞百老匯級歌舞匯演。" },
+            { id: "r8", title: "香檳吧古典琴音", desc: "聆聽現場鋼琴弦樂與無酒精特調收尾。" }
+          ]
+        }
+      ];
+
+      function renderRituals() {
+        var saved = getStoredJson("msc_onboard_rituals_v1", {});
+        var container = document.getElementById("ritualListContainer");
+        var doneCount = 0;
+
+        var html = RITUAL_GROUPS.map(function (group) {
+          var itemsHtml = group.items.map(function (it) {
+            var isDone = !!saved[it.id];
+            if (isDone) doneCount++;
+            return (
+              '<div class="ritual-item ' + (isDone ? "checked" : "") + '" onclick="toggleRitual(\'' + it.id + '\')">' +
+                '<div class="check-box">' + (isDone ? "✓" : "") + '</div>' +
+                '<div>' +
+                  '<div class="ritual-title">' + it.title + '</div>' +
+                  '<p class="ritual-desc">' + it.desc + '</p>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join("");
+          return '<div class="ritual-group-label">' + group.label + '</div>' + itemsHtml;
+        }).join("");
+
+        container.innerHTML = html;
+        var counter = document.getElementById("ritualCounter");
+        if (counter) counter.textContent = doneCount + " / 8 已體驗";
+      }
+
+      window.toggleRitual = function (id) {
+        var saved = getStoredJson("msc_onboard_rituals_v1", {});
+        saved[id] = !saved[id];
+        setStoredJson("msc_onboard_rituals_v1", saved);
+        renderRituals();
+      };
+
+      /* ----------------------------------------------------------
+         8. INTERACTIVE PRE-TRIP & BOARDING CHECKLIST
+         ---------------------------------------------------------- */
+      var CHECKLIST_ITEMS = [
+        { id: "c1", text: "護照正本與影本" },
+        { id: "c2", text: "日本網卡或漫遊" },
+        { id: "c3", text: "日幣現金與信用卡" },
+        { id: "c4", text: "下載 MSC for Me App" },
+        { id: "c5", text: "登船後預約倫敦大劇院" },
+        { id: "c6", text: "事先預約燒肉／阿古豬餐廳" },
+        { id: "c7", text: "泳衣與運動鞋" },
+        { id: "c8", text: "防風薄外套（12月海風較涼）" },
+        { id: "c9", text: "個人常備藥與暈船藥" }
+      ];
+
+      function renderChecklist() {
+        var saved = getStoredJson("msc_family_checklist_v1", {});
+        var container = document.getElementById("checklistContainer");
+        var doneCount = 0;
+
+        container.innerHTML = CHECKLIST_ITEMS.map(function (item) {
+          var isDone = !!saved[item.id];
+          if (isDone) doneCount++;
+          return (
+            '<div class="checklist-row ' + (isDone ? "checked" : "") + '" onclick="toggleChecklistItem(\'' + item.id + '\')">' +
+              '<div class="check-box">' + (isDone ? "✓" : "") + '</div>' +
+              '<span class="checklist-text">' + item.text + '</span>' +
+            '</div>'
+          );
+        }).join("");
+
+        var pct = Math.round((doneCount / CHECKLIST_ITEMS.length) * 100);
+        document.getElementById("checklistProgressText").textContent =
+          doneCount + " / " + CHECKLIST_ITEMS.length + " 完成 (" + pct + "%)";
+        document.getElementById("checklistProgressBar").style.width = pct + "%";
+      }
+
+      window.toggleChecklistItem = function (id) {
+        var saved = getStoredJson("msc_family_checklist_v1", {});
+        saved[id] = !saved[id];
+        setStoredJson("msc_family_checklist_v1", saved);
+        renderChecklist();
+      };
+
+      /* ----------------------------------------------------------
+         9. 1-CLICK CLEAN EXPORT FOR GITHUB PAGES
+         ---------------------------------------------------------- */
+      window.exportCleanHtml = function () {
+        try {
+          var clone = document.documentElement.cloneNode(true);
+
+          // Ensure all modals & toasts are closed in the exported file
+          clone.querySelectorAll(".modal-backdrop").forEach(function (m) {
+            m.classList.remove("open");
+          });
+          var clonedToast = clone.querySelector("#toast");
+          if (clonedToast) {
+            clonedToast.classList.remove("show");
+            clonedToast.textContent = "";
+          }
+          var clonedBody = clone.querySelector("body");
+          if (clonedBody) clonedBody.style.overflow = "";
+
+          // Reset active tab to overview in exported snapshot
+          clone.querySelectorAll(".tab-panel").forEach(function (p) {
+            p.classList.toggle("active", p.id === "tab-overview");
+          });
+          clone.querySelectorAll("#mainPillNav .nav-pill").forEach(function (btn) {
+            btn.classList.toggle("active", btn.getAttribute("data-tab") === "overview");
+          });
+
+          var htmlString = "<!DOCTYPE html>\n" + clone.outerHTML;
+          var blob = new Blob([htmlString], { type: "text/html;charset=utf-8" });
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement("a");
+          link.href = url;
+          link.download = "index.html";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1500);
+          showToast("✅ 已下載完整 index.html，可直接上傳至 GitHub Pages！");
+        } catch (e) {
+          showToast("下載失敗，請嘗試使用瀏覽器另存完整網頁");
+        }
+      };
+
+      /* ----------------------------------------------------------
+         10. APP INITIALIZATION
+         ---------------------------------------------------------- */
+      function initApp() {
+        // Countdown badge
+        var target = new Date("2026-12-16T00:00:00+08:00");
+        var now = new Date();
+        var diffDays = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+        var countdownEl = document.getElementById("countdownTag");
+        if (countdownEl) {
+          if (diffDays > 0) {
+            countdownEl.textContent = "距離啟航還有 " + diffDays + " 天";
+          } else if (diffDays >= -4) {
+            countdownEl.textContent = "🎉 家族航程進行中！";
+          } else {
+            countdownEl.textContent = "2026.12.16 – 12.20";
+          }
+        }
+
+        // Restore saved exchange rate
+        var savedRate = getStoredJson("msc_jpy_rate_v1", 0.215);
+        var rateEl = document.getElementById("rateInput");
+        if (rateEl) rateEl.value = savedRate;
+
+        // Render interactive modules
+        renderFamilyPicks();
+        renderRituals();
+        renderChecklist();
+        renderWeather();
+        fetchWeatherForIsland("naha");
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initApp);
+      } else {
+        initApp();
+      }
+    })();
+  </script>
+</body>
+</html>
